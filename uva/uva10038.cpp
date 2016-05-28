@@ -1,8 +1,4 @@
-// playground.cpp : Defines the entry point for the console application.
-//
-#include "stdafx.h"
 #include "common.h" // my defined macros
-
 
 //10038 - Jolly Jumpers
 int uva10038()
@@ -44,12 +40,3 @@ int uva10038()
 #endif
 	return 0;
 }
-//////////////////////////////////////////////////////////////////////
-int _tmain(int argc, _TCHAR* argv[])
-{
-	uva10038();
-	//cout<<txt[0];
-	//
-	system("pause");
-}
-
