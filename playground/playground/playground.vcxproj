@@ -79,12 +79,9 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="constructBinaryTree.h" />
-    <ClInclude Include="LetterCombinations.h" />
-    <ClInclude Include="mergeSortedArray.h" />
+    <ClInclude Include="common.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="UVA.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="playground.cpp" />
