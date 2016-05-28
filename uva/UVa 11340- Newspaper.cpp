@@ -1,6 +1,3 @@
-// playground.cpp : Defines the entry point for the console application.
-//
-#include "stdafx.h"
 #include "common.h" // my defined macros
 
 
@@ -49,12 +46,3 @@ int uva11340()
 #endif
 	return 0;
 }
-//////////////////////////////////////////////////////////////////////
-int _tmain(int argc, _TCHAR* argv[])
-{
-	uva11340();
-	//cout<<txt[0];
-	//
-	system("pause");
-}
-

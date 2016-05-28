@@ -2,9 +2,10 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <algorithm> 
+#include <algorithm> // sort
 #include <stdio.h>
-#include <cstring>
+#include <cstring> // memset
+#include <map> // map
 using namespace std;
 ///////////////////////////////////////////////////////////////////
 #define PB push_back
@@ -26,7 +27,7 @@ typedef vector<ii> vii;
 #define F2(n) REP(j, n)
 #define FT(m, n) FOR(k, m, n)
 #define SCAN_INT(n) scanf("%d",&(n))
-#define IN(n) int n;scanf("%d",&(n));
+#define IN(n) int (n);scanf("%d",&(n))
 #define PRINT_INT(n) printf("%d\n", (n))
 #define PRINT_STR(str) printf("%s\n", ((string)(str)).c_str())
 //////////////////////macros for local usage only///////////////////
