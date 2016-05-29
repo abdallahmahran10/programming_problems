@@ -1,7 +1,7 @@
 #include <iostream>
-//#include "merge_two_sorted_arrays.h"
 #include <vector>
 using namespace std;
+// 550 ms answer
 // Definition for singly-linked list.
 struct ListNode {
     int val;
