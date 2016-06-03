@@ -1,28 +1,16 @@
-// playground.cpp : Defines the entry point for the console application.
-//
-#include "stdafx.h"
 #include "common.h" // my defined macros
 
-/////////////////////uva problems template /////////////////////
-//12356 - Army Buddies
-int uva12356()
-{
-#ifdef LOCAL
-	freopen("input.txt", "r", stdin);
-	freopen("output.txt", "w", stdout);        
-#endif
-	// Your code is here //////////////////////////
-	
-	///////////////////////////////////////////////
-#ifdef LOCAL
-	fclose (stdout);
-#endif
-	return 0;
-}
-/////////////////////////////// LEETCODE ////////////////////////////////
-// Definitions
 
-// Implmentation 
+/**
+ * Definition for an interval.
+*/ 
+struct Interval {
+      int start;
+      int end;
+      Interval() : start(0), end(0) {}
+      Interval(int s, int e) : start(s), end(e) {}
+};
+//
 class SummaryRanges {
 public:
     SummaryRanges() {
@@ -57,6 +45,8 @@ private:
     /** Initialize your data structure here. */
 	map<int, int> _intervals;
 };
+
+/////////////////////// TEST CASES ///////////////////////////////////
 
 
 vector<Interval> testCase0() {
@@ -123,17 +113,4 @@ vector<Interval> testCase6() {
 	obj.addNum(4);
 	return obj.getIntervals();
 }
-//////////////////////////////////////////////////////////////////////
-int _tmain(int argc, _TCHAR* argv[])
-{
-	vector<Interval> retVal = testCase0();
-	retVal = testCase1();
-	retVal = testCase2();
-	retVal = testCase3();
-	retVal = testCase4();
-	retVal = testCase5();
-	retVal = testCase6();
-	system("pause");
-}
-//  map<int, int> intervals_;
-// set<int> nums_;
+
