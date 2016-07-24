@@ -2,6 +2,8 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <queue>
+#include <set>
 #include <algorithm> // sort
 #include <stdio.h>
 #include <cstring> // memset
@@ -33,6 +35,14 @@ typedef vector<ii> vii;
 //////////////////////macros for local usage only///////////////////
 #define LOCAL 
 ////////////////////////////////////////////////////////////////////
+// some difintions
+struct Interval {
+      int start;
+      int end;
+      Interval() : start(0), end(0) {}
+      Interval(int s, int e) : start(s), end(e) {}
+};
+///
 bool isIntervalsOverlapped(int x1, int x2, int y1, int y2)
 {
     return (x1 >= y1 && x1 <= y2) ||
@@ -77,4 +87,17 @@ vector<int>& getSubVector(vector<int>& vec, int start, int end)
 	vector<int>  *newVec=new vector<int> (first, last);
 	//printVector(*newVec);
 	return *newVec;
+}
+//
+bool isOverlapped(int x1, int x2, int y1, int y2)
+{
+    return (x1 >= y1 && x1 <= y2) ||
+            (x2 >= y1 && x2 <= y2) ||
+            (y1 >= x1 && y1 <= x2) ||
+            (y2 >= x1 && y2 <= x2);
+}
+//
+bool isOverlapped(Interval interval1, Interval interval2)
+{
+    return isOverlapped(interval1.start,interval1.end,interval2.start,interval2.end);
 }
