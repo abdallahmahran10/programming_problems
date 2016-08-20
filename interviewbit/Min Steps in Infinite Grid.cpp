@@ -2,23 +2,11 @@
 //
 #include "stdafx.h"
 #include "common.h" // my defined macros
-
-/////////////////////uva problems template /////////////////////
-//12356 - Army Buddies
-int uva12356()
-{
-#ifdef LOCAL
-	freopen("input.txt", "r", stdin);
-	freopen("output.txt", "w", stdout);        
-#endif
-	// Your code is here //////////////////////////
-	
-	///////////////////////////////////////////////
-#ifdef LOCAL
-	fclose (stdout);
-#endif
-	return 0;
-}
+/*
+Source: Interviewbit
+Category: Programming/Arrays/Min Steps In Infinite Grid
+https://www.interviewbit.com/problems/min-steps-in-infinite-grid/
+*/
 
 class point
 {
@@ -157,10 +145,4 @@ int testCase2()
 	vector<int> X(x, x + sizeof x / sizeof x[0]);
 	vector<int> Y(y, y + sizeof y / sizeof y[0]);
 	return coverPoints(X, Y);
-}
-//////////////////////////////////////////////////////////////////////
-int _tmain(int argc, _TCHAR* argv[])
-{
-	cout<<"Minimum number of steps = "<< testCase2()<<endl;
-	system("pause");
 }
