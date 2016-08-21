@@ -96,6 +96,8 @@ int coverPoints(vector<int> &X, vector<int> &Y) {
 	int steps=0;
 	for(int i=0; i<X.size()-1; i++)
 	{
+		steps += max(abs(X[i] - X[i+1]), abs(Y[i] - Y[i+1]));
+		/*
 		point p1(X[i], Y[i]), p2(X[i+1], Y[i+1]);
 		int dir =-1;
 		while (true)
@@ -109,6 +111,7 @@ int coverPoints(vector<int> &X, vector<int> &Y) {
 				steps++;
 			}
 		}
+		*/
 	}
 	return steps;
 }
@@ -138,8 +141,8 @@ int testCase1()
 
 int testCase2()
 {
-	// 3 0 1 5
-	// 3 1 3 2
+	// 2 -7 -13
+	// 2  1 -5
 	int x[] = {-7,-13};
 	int y[] = {1,-5};
 	vector<int> X(x, x + sizeof x / sizeof x[0]);

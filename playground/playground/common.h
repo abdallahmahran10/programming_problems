@@ -1,5 +1,6 @@
 #include <vector>
 #include <iostream>
+#include <sstream>
 #include <string>
 #include <vector>
 #include <queue>
@@ -7,6 +8,7 @@
 #include <algorithm> // sort
 #include <stdio.h>
 #include <cstring> // memset
+#include<stack>
 #include <map> // map
 using namespace std;
 ///////////////////////////////////////////////////////////////////
