@@ -2,37 +2,11 @@
 //
 #include "stdafx.h"
 #include "common.h" // my defined macros
-
-/////////////////////uva problems template /////////////////////
-//12356 - Army Buddies
-int uva12356()
-{
-#ifdef LOCAL
-	freopen("input.txt", "r", stdin);
-	freopen("output.txt", "w", stdout);        
-#endif
-	// Your code is here //////////////////////////
-	
-	///////////////////////////////////////////////
-#ifdef LOCAL
-	fclose (stdout);
-#endif
-	return 0;
-}
-///////////////////////
-void Main()
-{
-#ifdef LOCAL
-	freopen("input.txt", "r", stdin);
-	freopen("output.txt", "w", stdout);        
-#endif
-	// Implmentation //////////////////////////////
-	
-	///////////////////////////////////////////////
-#ifdef LOCAL
-	fclose (stdout);
-#endif
-}
+/*
+Source: Interviewbit
+Category: Programming/Arrays
+https://www.interviewbit.com/problems/max-sum-contiguous-subarray/
+*/
 
 
 int maxSubArray(const vector<int> &A) {
@@ -66,11 +40,4 @@ int testCase2()
 		-77, -230, -426, 20, -402, -375, -449, -280, -125, -15, -21, -327, -366, 64, -211, -414, -307};
 	vector<int> A(a, a + sizeof a / sizeof a[0]);
 	return maxSubArray(A);
-}
-
-//////////////////////////////////////////////////////////////////////
-int _tmain(int argc, _TCHAR* argv[])
-{
-	PRINT_INT( testCase1());
-	system("pause");
 }
