@@ -130,3 +130,12 @@ bool isOverlapped(Interval interval1, Interval interval2)
 {
     return isOverlapped(interval1.start,interval1.end,interval2.start,interval2.end);
 }
+
+template<typename T> void print_queue(T& q) {
+    while(!q.empty()) {
+        std::cout << q.top() << " ";
+        q.pop();
+    }
+    std::cout << '\n';
+}
+ 
