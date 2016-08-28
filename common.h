@@ -26,6 +26,7 @@ typedef vector<int> vi;
 typedef pair<int,int> ii;
 typedef vector<ii> vii;
 #define FOR(i, m, n) for (int i(m); i < n; i++)
+#define FOR_R(i, m, n) for (int i(m); i >= n; i--)
 #define REP(i, n) FOR(i, 0, n)
 #define F(n) REP(i, n)
 #define F2(n) REP(j, n)

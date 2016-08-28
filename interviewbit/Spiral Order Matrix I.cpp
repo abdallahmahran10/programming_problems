@@ -3,36 +3,6 @@
 #include "stdafx.h"
 #include "common.h" // my defined macros
 
-/////////////////////uva problems template /////////////////////
-//12356 - Army Buddies
-int uva12356()
-{
-#ifdef LOCAL
-	freopen("input.txt", "r", stdin);
-	freopen("output.txt", "w", stdout);        
-#endif
-	// Your code is here //////////////////////////
-	
-	///////////////////////////////////////////////
-#ifdef LOCAL
-	fclose (stdout);
-#endif
-	return 0;
-}
-///////////////////////
-void Main()
-{
-#ifdef LOCAL
-	freopen("input.txt", "r", stdin);
-	freopen("output.txt", "w", stdout);        
-#endif
-	// Implmentation //////////////////////////////
-	
-	///////////////////////////////////////////////
-#ifdef LOCAL
-	fclose (stdout);
-#endif
-}
 
 // Spiral Order Matrix I
 // https://www.interviewbit.com/problems/spiral-order-matrix-i/
@@ -99,19 +69,4 @@ vector<int > testCase0()
 	matrix.push_back(B);
 	matrix.push_back(C);
     return spiralOrder(matrix);
-}
-
-
-//////////////////////////////////////////////////////////////////////
-int _tmain(int argc, _TCHAR* argv[])
-{
-	printVector(testCase0()); 
-	//printVector(testCase1()); 
-	//printVector(testCase2()); 
-	//printVector(testCase3()); 
-	//printVector(testCase4()); 
-	//printVector(testCase5()); 
-	//printVector(testCase6()); 
-	//printVector(testCase7()); 
-	system("pause");
 }
