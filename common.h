@@ -1,5 +1,6 @@
 #include <vector>
 #include <iostream>
+#include <sstream>
 #include <string>
 #include <vector>
 #include <queue>
@@ -7,6 +8,7 @@
 #include <algorithm> // sort
 #include <stdio.h>
 #include <cstring> // memset
+#include<stack>
 #include <map> // map
 using namespace std;
 ///////////////////////////////////////////////////////////////////
@@ -30,8 +32,10 @@ typedef vector<ii> vii;
 #define FT(m, n) FOR(k, m, n)
 #define SCAN_INT(n) scanf("%d",&(n))
 #define IN(n) int (n);scanf("%d",&(n))
-#define PRINT_INT(n) printf("%d\n", (n))
+#define PRINT_INT(n) printf("%d ", (n))
 #define PRINT_STR(str) printf("%s\n", ((string)(str)).c_str())
+#define PRINT_LINE_SEPARATOR(ch) for(int sepCount = 15; sepCount>0; sepCount--) putchar(ch); printf("\n") 
+#define PRINT_LINE_SEPARATORS(ch,n) for(int sepCount = n; sepCount>0; sepCount--) putchar(ch) 
 //////////////////////macros for local usage only///////////////////
 #define LOCAL 
 ////////////////////////////////////////////////////////////////////
@@ -67,14 +71,39 @@ void printStringVector(const vector<string>& text){
 
 
 void printVector (const vector<int>& v){
-  cout<<"[";
-  for (int i=0; i<v.size();i++){
-    cout << v[i] << ",";
-  }
-  cout<<"]"<<endl;
+	cout<<"[";
+	int i=0;
+	for (; i<v.size()-1;i++){
+		cout << v[i] << ",";
+	}
+	cout<<v[i]<<"]"<<endl;
 }
 
 
+void printArray(int *a, int len)
+{
+	cout<<"[";
+	int i=0;
+	for(; i<len-1; i++)
+	{
+		cout << a[i] << ",";
+	}
+	cout<<a[i]<<"]"<<endl;
+}
+
+void swap(int *a, int l, int r)
+{
+	int tmp =a[l];
+	a[l]= a[r];
+	a[r] = tmp;
+}
+
+void swap(int *a1, int *a2)
+{
+	int tmp =*a1;
+	*a1 = *a2;
+	*a2 = tmp;
+}
 
 vector<int>& getSubVector(vector<int>& vec, int start, int end)
 {
@@ -101,3 +130,12 @@ bool isOverlapped(Interval interval1, Interval interval2)
 {
     return isOverlapped(interval1.start,interval1.end,interval2.start,interval2.end);
 }
+
+template<typename T> void print_queue(T& q) {
+    while(!q.empty()) {
+        std::cout << q.top() << " ";
+        q.pop();
+    }
+    std::cout << '\n';
+}
+ 
