@@ -139,4 +139,9 @@ template<typename T> void print_queue(T& q) {
     }
     std::cout << '\n';
 }
+
+template<typename T> vector<T> arrayToVector(T a[])
+{
+	return vector<T>(a, a + sizeof a / sizeof a[0]);
+}
  
