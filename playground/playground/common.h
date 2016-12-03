@@ -10,6 +10,8 @@
 #include <cstring> // memset
 #include<stack>
 #include <map> // map
+#include <assert.h>     /* assert */
+
 using namespace std;
 ///////////////////////////////////////////////////////////////////
 #define PB push_back
