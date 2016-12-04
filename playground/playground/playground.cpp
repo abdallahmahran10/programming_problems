@@ -61,20 +61,21 @@ int singleNumber2(vector<int>& nums) {
 
 	return answer;
 }
+
 int testCase0()
 {
-	int a[] ={1,2,2,1,3,4,55,3,55};
-	vector<int> nums(a, a + sizeof a / sizeof a[0]);
-	return singleNumber(nums);
+	double a[] ={1,2,2,1,3,4,55,3,55};
+	vector<double> nums(a, a + sizeof a / sizeof a[0]);
+//	return sum4(nums);
+	return 0 ;
 }
 
 //////////////////////////////////////////////////////////////////////
-#include "../../yandex/prob_1.h"
 
 int _tmain(int argc, _TCHAR* argv[])
 {
 	//_main();
-	//cout<<testCase0();
+	cout<<testCase0();
 	//PRINT_INT(testCase1());
 	//PRINT_INT(testCase2());
 	//PRINT_INT(testCase3());
