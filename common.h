@@ -10,6 +10,9 @@
 #include <cstring> // memset
 #include<stack>
 #include <map> // map
+#include <set> 
+#include <assert.h>     /* assert */
+
 using namespace std;
 ///////////////////////////////////////////////////////////////////
 #define PB push_back
@@ -138,5 +141,10 @@ template<typename T> void print_queue(T& q) {
         q.pop();
     }
     std::cout << '\n';
+}
+
+template<typename T> vector<T> arrayToVector(T a[])
+{
+	return vector<T>(a, a + sizeof a / sizeof a[0]);
 }
  

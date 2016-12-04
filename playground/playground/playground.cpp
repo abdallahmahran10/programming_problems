@@ -73,7 +73,7 @@ int testCase0()
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	_main();
+	//_main();
 	//cout<<testCase0();
 	//PRINT_INT(testCase1());
 	//PRINT_INT(testCase2());

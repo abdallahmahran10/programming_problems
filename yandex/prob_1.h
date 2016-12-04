@@ -107,7 +107,7 @@ protected:
     FeatureType type;        
 };
  
-extern int _main()
+extern int main()
 {
     Feature feature;
     FILE* file = fopen("features.dat", "r");
