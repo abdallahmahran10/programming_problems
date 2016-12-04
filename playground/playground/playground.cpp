@@ -69,10 +69,12 @@ int testCase0()
 }
 
 //////////////////////////////////////////////////////////////////////
+#include "../../yandex/prob_1.h"
+
 int _tmain(int argc, _TCHAR* argv[])
 {
+	_main();
 	//cout<<testCase0();
-	PRINT_INT(testCase0());
 	//PRINT_INT(testCase1());
 	//PRINT_INT(testCase2());
 	//PRINT_INT(testCase3());
