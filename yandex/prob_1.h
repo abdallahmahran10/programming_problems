@@ -17,13 +17,16 @@
 
 
 #define ARRAY_SIZE(x) (sizeof((x)) / sizeof((x)[0]))
-#define REFACTOR
+#define ON 1
+#define OFF 0
+#define REFACTOR ON // Enable disable refactor
+
 
 class Feature
 {
 public:
     enum FeatureType {eUnknown, eCircle, eTriangle, eSquare};
-#ifdef REFACTOR
+#if REFACTOR == ON
 	Feature(FeatureType _type, double * pointsArr) : type(_type), points(pointsArr) 
 	{ 
 		// or we can perform a deep copy to the pointsArr pointer
@@ -37,7 +40,7 @@ public:
             delete points;
     }
 
-#ifdef REFACTOR 
+#if REFACTOR == ON
 	    bool isValidPoints()
 		{
 			if(!points)
@@ -52,7 +55,7 @@ public:
     bool isValid() 
     {
         return type != eUnknown
-#ifdef REFACTOR 
+#if REFACTOR == ON 
 			&& isValidPoints();
 #endif 
 			;
@@ -71,7 +74,7 @@ public:
 			case eSquare: n = 8; break;
 			default: type = eUnknown; return false;
         }
-#ifdef REFACTOR
+#if REFACTOR == ON
 		// check if points read before
 		// if so, free the allocated memory before allocate new points
 		if(points)
@@ -89,7 +92,7 @@ public:
 	//
     void draw()
     {
-#ifdef REFACTOR
+#if REFACTOR == ON
 		if(!isValid())
 			return;
 #endif
