@@ -31,6 +31,12 @@ public:
 	{ 
 		// or we can perform a deep copy to the pointsArr pointer
 	}
+	Feature(FILE* file)
+	{ 
+		type = eUnknown;
+		points = 0;
+		read(file);
+	}
 #endif 
     Feature() : type(eUnknown), points(0) { }
  
