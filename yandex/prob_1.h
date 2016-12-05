@@ -24,7 +24,7 @@ class Feature
 public:
     enum FeatureType {eUnknown, eCircle, eTriangle, eSquare};
 #ifdef REFACTOR
-	Feature(FeatureType type, double * pointsArr) : type(type), points(pointsArr) 
+	Feature(FeatureType _type, double * pointsArr) : type(_type), points(pointsArr) 
 	{ 
 		// or we can perform a deep copy to the pointsArr pointer
 	}
@@ -43,7 +43,9 @@ public:
 			if(!points)
 				return false;
 			int size = ARRAY_SIZE(points);
-			return size == 3 || size == 6 || size == 8;
+			return (size == 3 && type == eCircle ) || 
+				(size == 6  && type == eTriangle ) ||
+				(size == 8 && type == eSquare );
 		}
 #endif 
 
