@@ -1,7 +1,10 @@
-#include <iostream>
-//#include "merge_two_sorted_arrays.h"
-#include <vector>
-using namespace std;
+/*
+  Author: Abdallah Mahran
+  Ref: https://leetcode.com/problems/merge-intervals/
+*/
+
+#include <common.h>
+
 
 
 /**
@@ -27,28 +30,34 @@ bool isOverlapped(Interval interval1, Interval interval2)
     return isOverlapped(interval1.start,interval1.end,interval2.start,interval2.end);
 }
 
-vector<Interval> merge(vector<Interval>& intervals) {
-    if(intervals.size() < 2)
-        return intervals;
+Interval mergeTwoIntervals(Interval interval1, Interval interval2)
+{
+	return Interval(min(interval1.start, interval2.start) ,
+		max(interval1.end, interval2.end));
+}
 
-	for(vector<Interval>::iterator iter = intervals.begin() ; iter != intervals.end(); ++iter)
+vector<Interval> merge(vector<Interval>& intervals) {
+	vector<Interval> mergedIntervals;
+	if (intervals.empty())
+		return mergedIntervals;
+	mergedIntervals.push_back(intervals[0]);
+	for (int i = 1; i < intervals.size(); i++)
 	{
-		for(vector<Interval>::iterator iter2 = intervals.begin() ; iter2 != intervals.end(); ++iter2)
+		Interval interval = intervals[i];
+		for (int j = 0; j < mergedIntervals.size(); )
 		{
-			if(iter == iter2)
-				continue;
-			if(isOverlapped(*iter, *iter2)) 
+			if (isOverlapped(interval, mergedIntervals[j]))
 			{
-				// merge and start over
-				iter->start = min(iter->start , iter2->start);
-				iter->end = max(iter->end, iter2->end);		
-				intervals.erase(iter2);
-				iter = intervals.begin();
-				break;
+				interval = mergeTwoIntervals(interval, mergedIntervals[j]);
+				mergedIntervals.erase(mergedIntervals.begin() + j);
 			}
+			else 
+				j++;
 		}
+		mergedIntervals.push_back(interval);
 	}
-    return intervals;
+
+	return mergedIntervals;
 }
 /////////////////////// TEST CASES ///////////////////////////////////
 void testOverlappingFunction()
