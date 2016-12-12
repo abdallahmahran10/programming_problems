@@ -148,3 +148,14 @@ template<typename T> vector<T> arrayToVector(T a[])
 	return vector<T>(a, a + sizeof a / sizeof a[0]);
 }
  
+bool isPalindrome(string s)
+{
+	return equal(s.begin(), s.begin() + s.size() / 2, s.rbegin());
+}
+
+
+// C++11
+string intToStr(int n)
+{
+	return std::to_string(n);
+}

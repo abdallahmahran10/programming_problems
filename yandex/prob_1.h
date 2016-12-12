@@ -17,16 +17,25 @@
 
 
 #define ARRAY_SIZE(x) (sizeof((x)) / sizeof((x)[0]))
-#define REFACTOR
+#define ON 1
+#define OFF 0
+#define REFACTOR ON // Enable disable refactor
+
 
 class Feature
 {
 public:
     enum FeatureType {eUnknown, eCircle, eTriangle, eSquare};
-#ifdef REFACTOR
-	Feature(FeatureType type, double * pointsArr) : type(type), points(pointsArr) 
+#if REFACTOR == ON
+	Feature(FeatureType _type, double * pointsArr) : type(_type), points(pointsArr) 
 	{ 
 		// or we can perform a deep copy to the pointsArr pointer
+	}
+	Feature(FILE* file)
+	{ 
+		type = eUnknown;
+		points = 0;
+		read(file);
 	}
 #endif 
     Feature() : type(eUnknown), points(0) { }
@@ -37,20 +46,22 @@ public:
             delete points;
     }
 
-#ifdef REFACTOR 
+#if REFACTOR == ON
 	    bool isValidPoints()
 		{
 			if(!points)
 				return false;
 			int size = ARRAY_SIZE(points);
-			return size == 3 || size == 6 || size == 8;
+			return (size == 3 && type == eCircle ) || 
+				(size == 6  && type == eTriangle ) ||
+				(size == 8 && type == eSquare );
 		}
 #endif 
 
     bool isValid() 
     {
         return type != eUnknown
-#ifdef REFACTOR 
+#if REFACTOR == ON 
 			&& isValidPoints();
 #endif 
 			;
@@ -69,7 +80,7 @@ public:
 			case eSquare: n = 8; break;
 			default: type = eUnknown; return false;
         }
-#ifdef REFACTOR
+#if REFACTOR == ON
 		// check if points read before
 		// if so, free the allocated memory before allocate new points
 		if(points)
@@ -87,7 +98,7 @@ public:
 	//
     void draw()
     {
-#ifdef REFACTOR
+#if REFACTOR == ON
 		if(!isValid())
 			return;
 #endif
