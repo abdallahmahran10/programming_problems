@@ -40,6 +40,9 @@ typedef vector<ii> vii;
 #define PRINT_STR(str) printf("%s\n", ((string)(str)).c_str())
 #define PRINT_LINE_SEPARATOR(ch) for(int sepCount = 15; sepCount>0; sepCount--) putchar(ch); printf("\n") 
 #define PRINT_LINE_SEPARATORS(ch,n) for(int sepCount = n; sepCount>0; sepCount--) putchar(ch) 
+
+#define SORT(V) sort(V.begin(), V.end())
+#define R_SORT(V) sort(V.rbegin(), V.rend())
 //////////////////////macros for local usage only///////////////////
 #define LOCAL 
 ////////////////////////////////////////////////////////////////////
