@@ -1,3 +1,6 @@
+#ifndef COMMON_H
+#define COMMON_H
+
 #include <vector>
 #include <iostream>
 #include <sstream>
@@ -12,6 +15,7 @@
 #include <map> // map
 #include <set> 
 #include <assert.h>     /* assert */
+#include <stdio.h>
 
 using namespace std;
 ///////////////////////////////////////////////////////////////////
@@ -54,7 +58,7 @@ struct Interval {
       Interval(int s, int e) : start(s), end(e) {}
 };
 ///
-bool isIntervalsOverlapped(int x1, int x2, int y1, int y2)
+static bool isIntervalsOverlapped(int x1, int x2, int y1, int y2)
 {
     return (x1 >= y1 && x1 <= y2) ||
             (x2 >= y1 && x2 <= y2) ||
@@ -63,7 +67,7 @@ bool isIntervalsOverlapped(int x1, int x2, int y1, int y2)
 }
 
 
-void printStringVector(const vector<string>& text){
+static void printStringVector(const vector<string>& text){
 	int iter;
 	cout<<"Vector count = "<<text.size()<<endl;
 	cout<<"content = [";
@@ -77,8 +81,14 @@ void printStringVector(const vector<string>& text){
 }
 
 
-void printVector (const vector<int>& v){
+static void printVector (const vector<int>& v){
 	cout<<"[";
+	if(v.empty())
+	{
+		cout<<"]"<<endl;
+		return;
+	}
+	
 	int i=0;
 	for (; i<v.size()-1;i++){
 		cout << v[i] << ",";
@@ -87,7 +97,7 @@ void printVector (const vector<int>& v){
 }
 
 
-void printArray(int *a, int len)
+static void printArray(int *a, int len)
 {
 	cout<<"[";
 	int i=0;
@@ -98,21 +108,21 @@ void printArray(int *a, int len)
 	cout<<a[i]<<"]"<<endl;
 }
 
-void swap(int *a, int l, int r)
+static void swap(int *a, int l, int r)
 {
 	int tmp =a[l];
 	a[l]= a[r];
 	a[r] = tmp;
 }
 
-void swap(int *a1, int *a2)
+static void swap(int *a1, int *a2)
 {
 	int tmp =*a1;
 	*a1 = *a2;
 	*a2 = tmp;
 }
 
-vector<int>& getSubVector(vector<int>& vec, int start, int end)
+static vector<int>& getSubVector(vector<int>& vec, int start, int end)
 {
 	//printVector(vec);
 	//cout<< "s:"<<start<<" e:"<<end<<endl; 
@@ -125,7 +135,7 @@ vector<int>& getSubVector(vector<int>& vec, int start, int end)
 	return *newVec;
 }
 //
-bool isOverlapped(int x1, int x2, int y1, int y2)
+static bool isOverlapped(int x1, int x2, int y1, int y2)
 {
     return (x1 >= y1 && x1 <= y2) ||
             (x2 >= y1 && x2 <= y2) ||
@@ -133,12 +143,13 @@ bool isOverlapped(int x1, int x2, int y1, int y2)
             (y2 >= x1 && y2 <= x2);
 }
 //
-bool isOverlapped(Interval interval1, Interval interval2)
+static bool isOverlapped(Interval interval1, Interval interval2)
 {
     return isOverlapped(interval1.start,interval1.end,interval2.start,interval2.end);
 }
 
-template<typename T> void print_queue(T& q) {
+template<typename T> 
+static void print_queue(T& q) {
     while(!q.empty()) {
         std::cout << q.top() << " ";
         q.pop();
@@ -146,8 +157,10 @@ template<typename T> void print_queue(T& q) {
     std::cout << '\n';
 }
 
-template<typename T> vector<T> arrayToVector(T a[])
+template<typename T> 
+static vector<T> arrayToVector(T a[])
 {
 	return vector<T>(a, a + sizeof a / sizeof a[0]);
 }
  
+#endif // COMMON_H
