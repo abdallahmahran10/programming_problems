@@ -3,6 +3,8 @@
 #include "stdafx.h"
 #include "common.h" // my defined macros
 #include "BST.h"
+#include "Graph.h"
+
 //#include "MaximumAbsoluteDifference.h"
 /////////////////////uva problems template /////////////////////
 //12356 - Army Buddies
@@ -35,25 +37,50 @@ void Main()
 #endif
 }
 
+int titleToNumber(string s) {
+	if(s.empty())
+		return 0;
+	int number=0;
+	for(int i=0; i<s.length(); i++)
+	{
+		number+= s[0] - 'A' + 1;
+	}
+	return number;
+}
+
+string convertToTitle(int n) {
+    if(n < 1)
+        return "";
+    int tmp = n;
+    string ret;
+	int count=0;
+	while(tmp/26 != 0)
+	{
+		if(tmp/26 > 26)
+			count++;
+		tmp/=26;
+	}
+	//
+    while(count/26 !=0)
+	{		
+		ret.push_back('Z');
+		count/=26;
+	}//
+	if(tmp != n)
+        ret.push_back((char)(tmp%26 + 64));
+    if(n%26)
+        ret.push_back((char)(n%26 + 64));
+    return ret;
+}
 
 void testCase()
 {
-	int a[] = {3,9,5,2,6,7,1,8};
-	vector<int> nums(a, a + (sizeof a / sizeof a[0]));
-	int apre[] ={ 5,2, 1, 3, 7, 6, 8, 9 };
-	int ain[] ={  1, 2, 3, 5, 6, 7, 8, 9 };
-	vector<int> pre(apre, apre + (sizeof apre / sizeof apre[0]));
-	vector<int> in(ain, ain + (sizeof ain / sizeof ain[0])); 
 
-
-	BST<int> bst1 = BST<int>::CreateBSTFromPreorderAndInorder(pre, in);
-	//BST<int> bst = BST<int>::CreateBST(nums, false);
-	printVector(nums);
-	bst1.preOrderPrint();
-	bst1.inOrderPrint();
-	//cout<<solve("aaabccddd")<<endl;
-	//cout<<solve("baab")<<endl;
-	//cout<<solve("bb")<<endl;
+	cout<<convertToTitle(485)<<endl;
+	//Graph<int> graph;
+	//graph.addNode(4);
+	//graph.addNode(3);
+	//graph.addEdgeByNodesData(4,3);
 }
 //////////////////////////////////////////////////////////////////////  0 1 1 2 3 5 8 13 21 34
 int _tmain(int argc, _TCHAR* argv[])
