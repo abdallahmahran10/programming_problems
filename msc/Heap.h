@@ -1,39 +1,84 @@
-// Binary Heap
-#include<iostream>
-#include<climits>
 
-/*
-Operations on Min Heap:
-1) getMini(): It returns the root element of Min Heap. Time Complexity of this operation is O(1).
-2) extractMin(): Removes the minimum element from Min Heap. Time Complexity of this Operation is O(Logn) 
-	as this operation needs to maintain the heap property (by calling heapify()) after removing root.
-3) decreaseKey(): Decreases value of key. Time complexity of this operation is O(Logn). 
-	If the decreases key value of a node is greater than parent of the node, then we don’t need to do anything. Otherwise, 
-	we need to traverse up to fix the violated heap property.
-4) insert(): Inserting a new key takes O(Logn) time. We add a new key at the end of the tree. IF new key is greater than its parent, 
-	then we don’t need to do anything. Otherwise, we need to traverse up to fix the violated heap property.
-5) delete(): Deleting a key also takes O(Logn) time. We replace the key to be deleted with minum infinite by calling decreaseKey(). 
-	After decreaseKey(), the minus infinite value must reach root, so we call extractMin() to remove key.
-*/
+
 template<typename T>
 class Heap
 {
 protected:
 	T *heapArray;
-	int capacity;
-	int heapSize;
+	size_t capacity;
+	size_t heapSize;
 public:
-	Heap(int n):capacity(n), heapSize(0)
+	T *DefaultToReturnInFailure;
+
+	Heap(int n, T *_default = NULL) :capacity(n), heapSize(0), DefaultToReturnInFailure(_default)
 	{
 		heapArray = new T[n];
 	}
 	//
-	T getRoot()
+	T top(){ return heapArray[0]; }
+	//
+	int parent(int i){ return (i - 1) / 2; }
+	//
+	int left(int i){ return 2 * i + 1; }
+	//
+	int right(int i){ return 2 * i + 2; }
+	//
+	bool compare(int l, int i) = 0;
+	//
+	void swapElments(int i, int j)
 	{
-		return heapArray[0];
+		T tmp = heapArray[i];
+		heapArray[i] = heapArray[j];
+		heapArray[j] = tmp;
 	}
 	//
-	void insert(T elm);
+	void heapify(int i)
+	{
+		int j = i, l = left(i), r = right(i);
+		if (l < heapSize && compare(l, i))
+			j = l;
+		if (r < heapSize && compare(r, i))
+			j = r;
+		if (j != i)
+		{
+			swapElments(i, j);
+			heapify(j);
+		}
+	}
+	//
+	T extractTop()
+	{
+		if (heapSize == 0)
+			return *DefaultToReturnInFailure;
+		if (heapSize == 1)
+			return heapArray[--heapSize];
+		T root = heapArray[0]; 
+		heapArray[0] = heapArray[--heapSize];
+		heapify(0);
+		return root;
+	}
+	//
+	void insert(T elm)
+	{
+		if (heapSize >= capacity)
+			return;
+		heapArray[heapSize] = elm;
+		size_t i = heapSize++;
+		// Fix the heap property if it is violated
+		while (i && compare(parent(i), i))
+		{
+			swapElments(i, parent(i));
+			i = parent(i);
+		}
+	}
+	//
+	void deleteElement(int i)
+	{
+		if (--heapSize == i)
+			return;
+		heapArray[i] = heapArray[heapSize];
+		heapify(i);
+	}
 };
 
 template<typename T>
@@ -42,7 +87,11 @@ class MaxHeap : public Heap<T>
 public:
 	MaxHeap(int n) : Heap<T>(n)
 	{}
-
+	//
+	bool compare(int i, int j)
+	{
+		return heapArray[i] > heapArray[j];
+	}
 };
 
 template<typename T>
@@ -51,4 +100,9 @@ class MinHeap : public Heap<T>
 public:
 	MinHeap(int n) : Heap<T>(n)
 	{}
+	//
+	bool compare(int i, int j)
+	{
+		return heapArray[i] < heapArray[j];
+	}
 };
