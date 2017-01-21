@@ -5,7 +5,7 @@
 */
 
 // Includes
-#include "common.h"
+#include "../common.h"
 // Types
 // Functions
 // Test cases

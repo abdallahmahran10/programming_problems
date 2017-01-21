@@ -12,96 +12,148 @@
 
 /********** AdjacentList **********/
 template<typename T>
-class GraphNode
+struct GraphNode
 {
-public:
 	T data;
-	GraphNode *next;
-	GraphNode(T d):data(d), next(NULL){}
+	vector<int> adjecentIndexes;
+	GraphNode(T d):data(d){}
+	GraphNode(){}
 	~GraphNode(){}
 };
-/********** AdjacentList **********/
-template<typename T>
-class AdjacentList
-{
-public:
-	GraphNode<T> *head;
-	std::stack<GraphNode<T>*> visited; 
-	//
-	AdjacentList():head(NULL){}
-	AdjacentList(GraphNode<T> *h):head(h){}
-	~AdjacentList()
-	{
-		//if(this->head!=NULL)
-		//{
-		//	delete head;
-		//}
-	}
-	
-	void addTail(GraphNode<T> *node)
-	{
-		if(head == NULL)
-		{
-			head = node;
-			return;
-		}
-		GraphNode<T> *slider = head;
-		while(slider->next != NULL)
-			slider = slider->next;
-		slider->next = node;
-	}
-};
+
 /******************* Graph Cass *******************/
 template<typename T>
 class Graph
 {
 private:
-	std::vector<AdjacentList<T>> adjListsVector;
-
-	size_t v;
+	std::vector<GraphNode<T>> graphVertices;
+	size_t V;
+	//
 	bool addEdge(size_t node1Idx, size_t node2Idx)
 	{
-		adjListsVector[node1Idx].addTail(new GraphNode<T>(adjListsVector[node2Idx].head->data));	
-		adjListsVector[node2Idx].addTail(new GraphNode<T>(adjListsVector[node1Idx].head->data));
+		
 		return true;
 	}
-
 public:
-	Graph():v(0){}
+	Graph():V(0){}
+	Graph(size_t v){
+		V =0;
+		for(size_t i=0; i<v; i++)
+			addNode(i);		
+	}
 	~Graph(){}
 	//
 	size_t getSize() {return v;}
 	//
 	void addNode(T data)
 	{
-		AdjacentList<T> ver(new GraphNode<T>(data));
-		adjListsVector.push_back(ver);
-		v++;
+		 graphVertices.push_back(GraphNode<T>(data));
+		 V++;
 	}
 	//
 	bool addEdgeByNodesIdx(size_t node1Idx, size_t node2Idx)
 	{
-		if(node1Idx >= v || node2Idx >= v )
+		if(node1Idx>=V || node2Idx>=V)
 			return false;
-		return addEdge(node1Idx, node2Idx);
+		graphVertices[node1Idx].adjecentIndexes.push_back(node2Idx);
+		graphVertices[node2Idx].adjecentIndexes.push_back(node1Idx);
+		return true;
 	}
 	//
 	bool addEdgeByNodesData(T node1Data, T node2Data)
 	{
-		int node1Idx = getNodeIdx(node1Data);
+		int node1Idx= getNodeIdx(node1Data);
 		int node2Idx= getNodeIdx(node2Data);
-		if(node1Idx <0 || node2Idx < 0 )
+		if(node1Idx == -1 || node2Idx == -1)
 			return false;
 		return addEdgeByNodesIdx(node1Idx, node2Idx);
 	}
 	//
 	int getNodeIdx(T nodeData)
 	{
-		for(int i=0; i<v; i++)
-			if(adjListsVector[i].head->data == nodeData)
+		for(int i=0; i<V; i++)
+			if(graphVertices[i].data == nodeData)
 				return i;
 		return -1;
 	}
-
+	//
+	void depthFirstTraversal() 
+	{
+		stack<int> indexes;
+		bool *visited = new bool[V]();
+		int currentVertex = 0;
+		visited[0] = true;
+		cout<< graphVertices[0].data << " ";
+		indexes.push(0);
+		do{
+			currentVertex = indexes.top();
+			indexes.pop();
+			for(int i=0; i<graphVertices[currentVertex].adjecentIndexes.size(); i++)
+			{
+				int idx = graphVertices[currentVertex].adjecentIndexes[i];
+				if(visited[idx])
+					continue;
+				else{
+					visited[idx] = true;
+					cout<< graphVertices[idx].data << " ";
+					indexes.push(idx);
+				}
+			}
+		}while(!indexes.empty());
+	}
+	//
+	void breadthFirstTraversal() 
+	{ 
+		breadthFirstTraversal(0); 
+	}
+	//
+	void breadthFirstTraversal(size_t s) 
+	{
+		queue<int> indexes;
+		bool *visited = new bool[V]();
+		int currentVertex = 0;
+		visited[0] = true;
+		cout<< graphVertices[0].data << " ";
+		indexes.push(s);
+		do{
+			currentVertex = indexes.front();
+			indexes.pop();
+			for(int i=0; i<graphVertices[currentVertex].adjecentIndexes.size(); i++)
+			{
+				int idx = graphVertices[currentVertex].adjecentIndexes[i];
+				if(visited[idx])
+					continue;
+				else{
+					visited[idx] = true;
+					cout<< graphVertices[idx].data << " ";
+					indexes.push(idx);
+				}
+			}
+		}while(!indexes.empty());
+	}
+	//
+	bool isPathExists(int i, int j)
+	{
+		stack<int> indexes;
+		bool *visited = new bool[V]();
+		int currentVertex = j;
+		visited[currentVertex] = true;
+		indexes.push(currentVertex);
+		do{
+			currentVertex = indexes.top();
+			indexes.pop();
+			for(int i=0; i<graphVertices[currentVertex].adjecentIndexes.size(); i++)
+			{
+				int idx = graphVertices[currentVertex].adjecentIndexes[i];
+				
+				if(idx == j)
+					return true;
+				else if(!visited[idx])
+					visited[idx] = true;
+					indexes.push(idx);
+				}
+		}while(!indexes.empty());
+		return false;
+	}
 };
 #endif //GRAPH_H

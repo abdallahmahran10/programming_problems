@@ -27,7 +27,7 @@ public:
 	}
 };
 
-/******************* Sorter *******************/
+/******************* Quick Sorter *******************/
 template <typename T>
 class QuickSorter : public Sorter<T>
 {
@@ -70,7 +70,7 @@ public:
 	}
 };
 
-/******************* Sorter *******************/
+/******************* Merge Sorter *******************/
 template <typename T>
 class MergeSorter : public Sorter<T>
 {
@@ -116,7 +116,7 @@ public:
 	}
 };
 
-/******************* Sorter *******************/
+/******************* Insertion Sorter *******************/
 template <typename T>
 class InsertionSorter : public Sorter<T>
 {

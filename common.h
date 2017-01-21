@@ -1,3 +1,6 @@
+#ifndef COMMON_H
+#define COMMON_H
+
 #include <vector>
 #include <iostream>
 #include <sstream>
@@ -12,6 +15,7 @@
 #include <map> // map
 #include <set> 
 #include <assert.h>     /* assert */
+#include <stdio.h>
 
 using namespace std;
 ///////////////////////////////////////////////////////////////////
@@ -40,10 +44,26 @@ typedef vector<ii> vii;
 #define PRINT_STR(str) printf("%s\n", ((string)(str)).c_str())
 #define PRINT_LINE_SEPARATOR(ch) for(int sepCount = 15; sepCount>0; sepCount--) putchar(ch); printf("\n") 
 #define PRINT_LINE_SEPARATORS(ch,n) for(int sepCount = n; sepCount>0; sepCount--) putchar(ch) 
+// Converts key current character into index
+// use only 'a' through 'z' and lower case
+#define CHAR_TO_INDEX(c) ((int)c - (int)'a')
+#define ARRAY_SIZE(a) (sizeof (a)/ sizeof (a)[0])
+#define ARRAY_END(a) ((a) + ARRAY_SIZE(a))
+
+#define SORT(V) sort(V.begin(), V.end())
+#define R_SORT(V) sort(V.rbegin(), V.rend())
 //////////////////////macros for local usage only///////////////////
 #define LOCAL 
 ////////////////////////////////////////////////////////////////////
 // some difintions
+//
+struct ListNode
+{
+	int val;
+	ListNode *next;
+	ListNode(int x) : val(x), next(NULL) {}
+};
+
 struct Interval {
       int start;
       int end;
@@ -51,7 +71,7 @@ struct Interval {
       Interval(int s, int e) : start(s), end(e) {}
 };
 ///
-bool isIntervalsOverlapped(int x1, int x2, int y1, int y2)
+static bool isIntervalsOverlapped(int x1, int x2, int y1, int y2)
 {
     return (x1 >= y1 && x1 <= y2) ||
             (x2 >= y1 && x2 <= y2) ||
@@ -60,7 +80,7 @@ bool isIntervalsOverlapped(int x1, int x2, int y1, int y2)
 }
 
 
-void printStringVector(const vector<string>& text){
+static void printStringVector(const vector<string>& text){
 	int iter;
 	cout<<"Vector count = "<<text.size()<<endl;
 	cout<<"content = [";
@@ -74,8 +94,14 @@ void printStringVector(const vector<string>& text){
 }
 
 
-void printVector (const vector<int>& v){
+static void printVector (const vector<int>& v){
 	cout<<"[";
+	if(v.empty())
+	{
+		cout<<"]"<<endl;
+		return;
+	}
+	
 	int i=0;
 	for (; i<v.size()-1;i++){
 		cout << v[i] << ",";
@@ -84,7 +110,7 @@ void printVector (const vector<int>& v){
 }
 
 
-void printArray(int *a, int len)
+static void printArray(int *a, int len)
 {
 	cout<<"[";
 	int i=0;
@@ -95,21 +121,21 @@ void printArray(int *a, int len)
 	cout<<a[i]<<"]"<<endl;
 }
 
-void swap(int *a, int l, int r)
+static void swap(int *a, int l, int r)
 {
 	int tmp =a[l];
 	a[l]= a[r];
 	a[r] = tmp;
 }
 
-void swap(int *a1, int *a2)
+static void swap(int *a1, int *a2)
 {
 	int tmp =*a1;
 	*a1 = *a2;
 	*a2 = tmp;
 }
 
-vector<int>& getSubVector(vector<int>& vec, int start, int end)
+static vector<int>& getSubVector(vector<int>& vec, int start, int end)
 {
 	//printVector(vec);
 	//cout<< "s:"<<start<<" e:"<<end<<endl; 
@@ -122,7 +148,7 @@ vector<int>& getSubVector(vector<int>& vec, int start, int end)
 	return *newVec;
 }
 //
-bool isOverlapped(int x1, int x2, int y1, int y2)
+static bool isOverlapped(int x1, int x2, int y1, int y2)
 {
     return (x1 >= y1 && x1 <= y2) ||
             (x2 >= y1 && x2 <= y2) ||
@@ -130,12 +156,13 @@ bool isOverlapped(int x1, int x2, int y1, int y2)
             (y2 >= x1 && y2 <= x2);
 }
 //
-bool isOverlapped(Interval interval1, Interval interval2)
+static bool isOverlapped(Interval interval1, Interval interval2)
 {
     return isOverlapped(interval1.start,interval1.end,interval2.start,interval2.end);
 }
 
-template<typename T> void print_queue(T& q) {
+template<typename T> 
+static void print_queue(T& q) {
     while(!q.empty()) {
         std::cout << q.top() << " ";
         q.pop();
@@ -143,19 +170,63 @@ template<typename T> void print_queue(T& q) {
     std::cout << '\n';
 }
 
-template<typename T> vector<T> arrayToVector(T a[])
+template<typename T> 
+static vector<T> arrayToVector(T a[])
 {
 	return vector<T>(a, a + sizeof a / sizeof a[0]);
 }
- 
-bool isPalindrome(string s)
+
+void printLL(ListNode *p)
 {
-	return equal(s.begin(), s.begin() + s.size() / 2, s.rbegin());
+	while(p)
+	{
+		cout<< p->val << " ";
+		p = p->next;
+	}
+	cout<<endl;
 }
 
-
-// C++11
-string intToStr(int n)
+void printLLReversed(ListNode *p)
 {
-	return std::to_string(n);
+	if(p == NULL)
+	{
+		cout<<endl;
+		return;
+	}
+	printLLReversed(p->next);
+	cout<< p->val << " ";
 }
+//
+ListNode *toLL(int *a, int n)
+{
+	if(n<1)
+		return NULL;
+	ListNode *head = new ListNode(a[0]);
+	ListNode *slider = head;
+	for(int i=1; i<n; i++)
+	{
+		slider->next = new ListNode(a[i]);
+		slider = slider->next;
+	}
+	return head;
+}
+//
+void reverseLL(ListNode *p, ListNode **head)
+{
+	if(p->next == NULL)
+	{
+		*head = p;
+		return;
+	}
+	printLLReversed(p->next);
+	ListNode *tmp = p->next;
+	tmp->next = p;
+	p->next = NULL;
+}
+//
+ListNode* reverseLL(ListNode *head)
+{
+	reverseLL(head, &head);
+	return head;
+}
+#endif // COMMON_H
