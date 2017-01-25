@@ -5,20 +5,22 @@
 
 #include "common.h"
 
+
+typedef unordered_map<int, int>::const_iterator cit;
 vector<int> twoSum(vector<int>& nums, int target) {
-	vector<int> result;
-	if (nums.empty())
-		return result;
+	vector<int> result; 
+	unordered_map<int, int> hash;
 	for (int i = 0; i < nums.size(); i++)
-		for (int j = i+1; j < nums.size(); j++)
+	{
+		cit it = hash.find(target - nums[i]);
+		if (it != hash.end())
 		{
-			if (nums[i] + nums[j] == target)
-			{
-				result.push_back(i);
-				result.push_back(j);
-				return result;
-			}
+			result.push_back(it->second);
+			result.push_back(i);
+			break;
 		}
+		hash[nums[i]] = i;
+	}
 	return result;
 }
 void testCase0()
