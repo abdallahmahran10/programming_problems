@@ -49,6 +49,7 @@ typedef vector<ii> vii;
 #define CHAR_TO_INDEX(c) ((int)c - (int)'a')
 #define ARRAY_SIZE(a) (sizeof (a)/ sizeof (a)[0])
 #define ARRAY_END(a) ((a) + ARRAY_SIZE(a))
+#define TO_VECTOR(a) vector<int>((a), ARRAY_END((a)))
 
 #define SORT(V) sort(V.begin(), V.end())
 #define R_SORT(V) sort(V.rbegin(), V.rend())
@@ -56,6 +57,13 @@ typedef vector<ii> vii;
 #define LOCAL 
 ////////////////////////////////////////////////////////////////////
 // some difintions
+//
+struct TreeNode {
+	int val;
+	TreeNode *left;
+	TreeNode *right;
+	TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+};
 //
 struct ListNode
 {
