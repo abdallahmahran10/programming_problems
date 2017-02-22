@@ -9,10 +9,9 @@ protected:
 	size_t heapSize;
 public:
 	T *DefaultToReturnInFailure;
-
-	Heap(int n, T *_default = NULL) :capacity(n), heapSize(0), DefaultToReturnInFailure(_default)
+	
+	Heap(int n, T *_default = NULL) :heapArray(new T[n]), capacity(n), heapSize(0), DefaultToReturnInFailure(_default)
 	{
-		heapArray = new T[n];
 	}
 	//
 	T top(){ return heapArray[0]; }
@@ -23,7 +22,7 @@ public:
 	//
 	int right(int i){ return 2 * i + 2; }
 	//
-	bool compare(int l, int i) = 0;
+	virtual bool compare(int l, int i) = 0;
 	//
 	void swapElments(int i, int j)
 	{
@@ -34,6 +33,8 @@ public:
 	//
 	void heapify(int i)
 	{
+		if(!heapSize)
+			return;	
 		int j = i, l = left(i), r = right(i);
 		if (l < heapSize && compare(l, i))
 			j = l;
@@ -48,7 +49,7 @@ public:
 	//
 	T extractTop()
 	{
-		if (heapSize == 0)
+		if (heapSize == 0 && DefaultToReturnInFailure != NULL)
 			return *DefaultToReturnInFailure;
 		if (heapSize == 1)
 			return heapArray[--heapSize];
@@ -62,10 +63,14 @@ public:
 	{
 		if (heapSize >= capacity)
 			return;
-		heapArray[heapSize] = elm;
-		size_t i = heapSize++;
+		heapArray[heapSize++] = elm;
+		fixHeap(heapSize-1);
+	}
+	//
+	void fixHeap(size_t i)
+	{
 		// Fix the heap property if it is violated
-		while (i && compare(parent(i), i))
+		while (i && compare(i, parent(i)))
 		{
 			swapElments(i, parent(i));
 			i = parent(i);
@@ -78,6 +83,11 @@ public:
 			return;
 		heapArray[i] = heapArray[heapSize];
 		heapify(i);
+	}
+	void decreaseKey(int i, T new_val)
+	{
+		heapArray[i] = new_val;
+		fixHeap(i);
 	}
 };
 

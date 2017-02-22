@@ -6,6 +6,7 @@
 #include "Graph.h"
 #include "Trie.h"
 #include "Queue.h"
+#include "Heap.h"
 
 //#include "MaximumAbsoluteDifference.h"
 /////////////////////uva problems template /////////////////////
@@ -38,9 +39,35 @@ void Main()
 	fclose (stdout);
 #endif
 }
+void printAN(vector<string> words)
+{
+	F(i)
+	{
+		sort(words[i].begin(), words[i].end());
+	}
+	sort(words.begin(), words.end());
+	printStringVector(words);
+}
+int binarySubString(int x, int y, int i, int j)
+{
+	if(i> j)
+		return x;
+	while(i--)
+	{
+		y<<=1;
+	}
+
+	return x;
+}
 
 void testCase()
 {
+	MaxHeap<int> h(10);
+	h.insert(1);
+	h.extractTop();
+	h.decreaseKey(1,3);
+	auto func = [] () { cout << "Hello world"; };
+    func(); // now call the function
 	cout<<"done"<<endl;
 }
 //////////////////////////////////////////////////////////////////////  0 1 1 2 3 5 8 13 21 34

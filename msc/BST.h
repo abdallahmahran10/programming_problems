@@ -59,6 +59,7 @@ private:
 	//
 	static Node<T> *buildTree(vector<T>& preorder, vector<T>& inorder, int ps, int pe, int is, int ie)
 	{
+		
 		if(pe<ps)
 			return NULL;
 		Node<T> *node = new Node<T>(preorder[ps]);
@@ -186,6 +187,23 @@ private:
 		}
 		return node;
 	}
+	
+	int minDepth(TreeNode* root) {
+		if(root == NULL)
+			return 0;
+		if(root->left == NULL) 
+			return 1 + minDepth(root->right);
+		if(root->right == NULL) 
+			return 1 + minDepth(root->left);
+		return min(minDepth(root->left), minDepth(root->right)) + 1;
+	}
+	//
+	int getHeight(Node<T> *node)
+	{
+		if(node==NULL)
+			return -1;
+		return max(getHeight(node->leftChild), getHeight(node->rightChild)) +1;
+	}
 /*********** Public Members **********/
 public:
 	BST(Node<T> *root) 
@@ -258,44 +276,33 @@ public:
 	{
 		deleteNode(mRoot, data);
 	}
-	//
-	int getHeight(Node<T> *node)
-	{
-		if(node==NULL)
-			return -1;
-		return max(getHeight(node->leftChild), getHeight(node->rightChild)) +1;
-	}
+	
 	//
 	int getHeight(T data)
 	{
 		return getHeight(search(data));
+	}
+	//
+	int minDepth() {
+		return minDepth(mRoot);
+	}
+	//
+	int maxDepth(TreeNode* root) {
+		if(root == NULL)
+			return 0;
+		if(root->left == NULL) 
+			return 1 + maxDepth(root->right);
+		if(root->right == NULL) 
+			return 1 + maxDepth(root->left);
+		return max(maxDepth(root->left), maxDepth(root->right)) + 1;
 	}
 };
 
 #endif //BST_H
 
 /*
+/////////////////////////////////////////////////////
 
-/////////////////////////////////////////////////////
-int minDepth(TreeNode* root) {
-	if(root == NULL)
-		return 0;
-	if(root->left == NULL) 
-		return 1 + minDepth(root->right);
-	if(root->right == NULL) 
-		return 1 + minDepth(root->left);
-	return min(minDepth(root->left), minDepth(root->right)) + 1;
-}
-/////////////////////////////////////////////////////
-int maxDepth(TreeNode* root) {
-	if(root == NULL)
-		return 0;
-	if(root->left == NULL) 
-		return 1 + maxDepth(root->right);
-	if(root->right == NULL) 
-		return 1 + maxDepth(root->left);
-	return max(maxDepth(root->left), maxDepth(root->right)) + 1;
-}
 /////////////////////////////////////////////////////
 vector<vector<int>> res;
 void buildLevelsVector(TreeNode* node, int depth)

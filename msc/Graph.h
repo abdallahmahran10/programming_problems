@@ -112,7 +112,7 @@ public:
 		queue<int> indexes;
 		bool *visited = new bool[V]();
 		int currentVertex = 0;
-		visited[0] = true;
+		visited[s] = true;
 		cout<< graphVertices[0].data << " ";
 		indexes.push(s);
 		do{
@@ -134,12 +134,15 @@ public:
 	//
 	bool isPathExists(int i, int j)
 	{
+		if(i >=V && j>=V)
+			return false;
 		stack<int> indexes;
 		bool *visited = new bool[V]();
 		int currentVertex = j;
 		visited[currentVertex] = true;
 		indexes.push(currentVertex);
-		do{
+		while(!indexes.empty())
+		{
 			currentVertex = indexes.top();
 			indexes.pop();
 			for(int i=0; i<graphVertices[currentVertex].adjecentIndexes.size(); i++)
@@ -152,7 +155,8 @@ public:
 					visited[idx] = true;
 					indexes.push(idx);
 				}
-		}while(!indexes.empty());
+		}
+		
 		return false;
 	}
 };

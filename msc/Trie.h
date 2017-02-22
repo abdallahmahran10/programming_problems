@@ -31,7 +31,7 @@ private:
 		return pNode;
 	}
 	//
-	void insert(const string &str, int i, TrieNode *node)
+	void insert(const string &str, size_t i, TrieNode *node)
 	{
 		if(i == str.size())
 			node->isLeaf = true;
@@ -45,7 +45,7 @@ private:
 
 	}
 	//
-	bool search(const string &str, int i, TrieNode *node)
+	bool search(const string &str, size_t i, TrieNode *node)
 	{
 		if(i == str.size())
 		{

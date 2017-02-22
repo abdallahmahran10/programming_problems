@@ -16,6 +16,7 @@
 #include <set> 
 #include <assert.h>     /* assert */
 #include <stdio.h>
+#include <bitset>
 
 using namespace std;
 ///////////////////////////////////////////////////////////////////
@@ -89,7 +90,6 @@ static bool isIntervalsOverlapped(int x1, int x2, int y1, int y2)
 
 
 static void printStringVector(const vector<string>& text){
-	int iter;
 	cout<<"Vector count = "<<text.size()<<endl;
 	cout<<"content = [";
     for (std::vector<string>::const_iterator iter = text.begin(); iter != text.end(); )
@@ -110,7 +110,7 @@ static void printVector (const vector<int>& v){
 		return;
 	}
 	
-	int i=0;
+	size_t i=0;
 	for (; i<v.size()-1;i++){
 		cout << v[i] << ",";
 	}
