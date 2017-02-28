@@ -1,3 +1,3 @@
 # Programming Problems
 
-Just my solutions for some of the programming problems.
+Just sharing my solutions for some of the programming problems.
