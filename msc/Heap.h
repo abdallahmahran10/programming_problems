@@ -35,7 +35,7 @@ public:
 	{
 		if(!heapSize)
 			return;	
-		int j = i, l = left(i), r = right(i);
+		size_t j = i, l = left(i), r = right(i);
 		if (l < heapSize && compare(l, i))
 			j = l;
 		if (r < heapSize && compare(r, i))

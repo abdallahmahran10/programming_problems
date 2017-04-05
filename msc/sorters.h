@@ -13,14 +13,15 @@ desc: implementation of some wel known algorithms
 template <typename T>
 class Sorter
 {
+
 public:
+	virtual void sort(T *A, size_t n) = 0;
 	virtual void sort(std::vector<T> &V)
 	{
 		if (V.empty())
 			return;
 		sort(&V[0], V.size());
 	}
-	virtual void sort(T *A, size_t n) = 0;
 	std::vector<T> toVector(T *A, size_t n)
 	{
 		return std::vector<T>(A, A + n);
@@ -38,7 +39,6 @@ class QuickSorter : public Sorter<T>
 		{
 			if (A[i]> A[pivotIdx])
 			{
-				int j = i;
 				int diff = std::abs(i - pivotIdx);				
 				if (diff != 1)
 				{
@@ -62,6 +62,7 @@ private:
 	}
 
 public:
+	using Sorter::sort;
 	virtual void sort(T *A, size_t n) 
 	{
 		if (n < 2)
@@ -95,7 +96,7 @@ private:
 			//if ()
 		}
 	}
-
+	//
 	void mergeSort(T *A, int l, int r)
 	{
 		if (l < r)
@@ -108,6 +109,7 @@ private:
 	}
 
 public:
+	using Sorter::sort;
 	virtual void sort(T *A, size_t n) 
 	{
 		if (n < 2)
@@ -123,33 +125,30 @@ class InsertionSorter : public Sorter<T>
 private:
 	void insertionSort(T *A, size_t  n)
 	{
-		for (int i = 1; i < n; i++)
+		size_t i, key, j;
+		for (i = 1; i < n; i++)
 		{
-			int tmp = A[i];
-			for (int j = 0; j < i; j++)
+			key = A[i];
+			j = i-1;
+			/* Move elements of arr[0..i-1], that are
+				greater than key, to one position ahead
+				of their current position */
+			while (j >= 0 && A[j] > key)
 			{
-				if (A[j] >= tmp)
-				{
-					// Insert the tmp value to be the jth element
-					int k = i;
-					while (k > j)
-					{
-						A[k] = A[k - 1];
-						k--;
-					}
-					A[j] = tmp;
-					break; 
-				}
+				A[j+1] = A[j];
+				--j;
 			}
+			A[j+1] = key;
 		}
 	}
 
 public:
+	using Sorter::sort;
 	virtual void sort(T *A, size_t n) 
 	{
 		if (n < 2)
 			return;
-		insertionSort(A, n );
+		insertionSort(A, n);
 	}
 };
 #endif //SORTERS_H

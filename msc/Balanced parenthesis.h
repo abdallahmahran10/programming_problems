@@ -1,7 +1,6 @@
 // playground.cpp : Defines the entry point for the console application.
 //
-#include "stdafx.h"
-#include "common.h" // my defined macros
+#include "../common.h" // my defined macros
 /*
 Balanced parenthesis
 

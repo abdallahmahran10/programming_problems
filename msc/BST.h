@@ -84,7 +84,6 @@ private:
 		node->rightChild = buildTree(preorder, inorder,ps + idx+1,  pe, is + idx+1, ie);
 		return node;
 	}
-
 	//
 	static Node<T> *fromSortedVector(std::vector<T> &dataVec)
 	{
@@ -124,7 +123,7 @@ private:
 		if(node == NULL)
 			return;
 		inOrderTraversal(node->leftChild);
-		std::cout<<node->data<< " "; 
+		std::cout<<node->data<< " ";
 		inOrderTraversal(node->rightChild);
 	}
 	//

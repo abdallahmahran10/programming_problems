@@ -30,9 +30,10 @@ using namespace std;
 typedef long long ll;
 typedef long double ld;
 typedef pair<ll,ll> pll;
-typedef vector<int> vi;
-typedef pair<int,int> ii;
-typedef vector<ii> vii;
+typedef vector<int> ivector;
+typedef vector<string> svector;
+typedef pair<int,int> iipair;
+typedef vector<iipair> iipairVector;
 #define FOR(i, m, n) for (int i(m); i < n; i++)
 #define FOR_R(i, m, n) for (int i(m); i >= n; i--)
 #define REP(i, n) FOR(i, 0, n)
@@ -50,7 +51,8 @@ typedef vector<ii> vii;
 #define CHAR_TO_INDEX(c) ((int)c - (int)'a')
 #define ARRAY_SIZE(a) (sizeof (a)/ sizeof (a)[0])
 #define ARRAY_END(a) ((a) + ARRAY_SIZE(a))
-#define TO_VECTOR(a) vector<int>((a), ARRAY_END((a)))
+#define TO_VECTOR(a) ivector((a), ARRAY_END((a)))
+#define TO_SVECTOR(a) svector((a), ARRAY_END((a)))
 
 #define SORT(V) sort(V.begin(), V.end())
 #define R_SORT(V) sort(V.rbegin(), V.rend())

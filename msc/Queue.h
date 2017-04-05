@@ -33,12 +33,10 @@ public:
 		}
 		//
 		if(empty())
-		{
 			mRear = mFront = 0;
-		} else
-		{
+		else		
 			mRear = (mRear + 1) % mSize;
-		}
+		
 		mQueue[mRear] = e;
 	}
 	//

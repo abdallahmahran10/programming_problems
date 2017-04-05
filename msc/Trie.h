@@ -21,7 +21,7 @@ class Trie
 {
 private:
 	TrieNode *mRoot;
-	TrieNode *getNode()
+	TrieNode *createNode()
 	{
 		TrieNode *pNode = new TrieNode();
 		pNode->isLeaf = false;
@@ -40,7 +40,7 @@ private:
 		if(node == NULL)
 			return;
 		if(node->children[CHAR_TO_INDEX(str[i])] == NULL)
-			node->children[CHAR_TO_INDEX(str[i])] = getNode();
+			node->children[CHAR_TO_INDEX(str[i])] = createNode();
 		insert(str, i+1, node->children[CHAR_TO_INDEX(str[i])]);
 
 	}
@@ -63,7 +63,7 @@ private:
 public:	
 	Trie()
 	{
-		mRoot = getNode();
+		mRoot = createNode();
 	}
 	//
 	void insert(const string &str)

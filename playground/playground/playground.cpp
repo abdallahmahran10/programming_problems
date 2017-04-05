@@ -7,6 +7,7 @@
 #include "Trie.h"
 #include "Queue.h"
 #include "Heap.h"
+#include "sorters.h"
 
 //#include "MaximumAbsoluteDifference.h"
 /////////////////////uva problems template /////////////////////
@@ -39,36 +40,41 @@ void Main()
 	fclose (stdout);
 #endif
 }
-void printAN(vector<string> words)
+void permute(string s, int l, int r)
 {
-	F(i)
-	{
-		sort(words[i].begin(), words[i].end());
-	}
-	sort(words.begin(), words.end());
-	printStringVector(words);
+   cout<<"ip="<<s<<" L:"<<l<<" R:"<<r<<endl;
+   int i;
+   if (l == r)
+     cout<<">>>>>>>>>>>>>>>>>>..."<<s<<endl;
+   else
+   {
+       for (i = l; i <= r; i++)
+       {
+          swap(s[l], s[i]);
+          permute(s, l+1, r);
+          swap(s[l], s[i]); //backtrack
+       }
+   }
 }
-int binarySubString(int x, int y, int i, int j)
-{
-	if(i> j)
-		return x;
-	while(i--)
-	{
-		y<<=1;
-	}
 
-	return x;
+template<typename T1, typename T2>
+void pr(T1 a, T2 b)
+{
+	cout<<a<<endl;
+	cout<<b<<endl;
+}
+
+void best_hotels() {
+
 }
 
 void testCase()
 {
-	MaxHeap<int> h(10);
-	h.insert(1);
-	h.extractTop();
-	h.decreaseKey(1,3);
-	auto func = [] () { cout << "Hello world"; };
-    func(); // now call the function
-	cout<<"done"<<endl;
+	//int a[]={2,3,4,8};
+	//ivector v = TO_VECTOR(a);
+//	cout<<pathSum(&r, 8)<<endl;
+	int a=1; pr(a,a+1);
+	cout<<"done"<<endl; 
 }
 //////////////////////////////////////////////////////////////////////  0 1 1 2 3 5 8 13 21 34
 int _tmain(int argc, _TCHAR* argv[])
