@@ -17,6 +17,7 @@
 #include <assert.h>     /* assert */
 #include <stdio.h>
 #include <bitset>
+#include <unordered_map>
 
 using namespace std;
 ///////////////////////////////////////////////////////////////////
@@ -81,6 +82,21 @@ struct Interval {
       Interval() : start(0), end(0) {}
       Interval(int s, int e) : start(s), end(e) {}
 };
+template <typename T>
+bool searchInVector(vector<T> v, T val, int *index, /*params for directed search*/ int s=-1, int n=0)
+{
+	if(n==0)
+		n=v.size();
+	if(s==-1)
+		s=0;
+	vector<T>::iterator it = find(v.begin()+s, v.begin()+n, val);
+	if (it != v.begin()+n)
+	{
+		*index = it -v.begin();
+		return true;
+	}
+	return false;
+}
 ///
 static bool isIntervalsOverlapped(int x1, int x2, int y1, int y2)
 {

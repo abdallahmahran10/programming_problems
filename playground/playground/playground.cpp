@@ -8,6 +8,7 @@
 #include "Queue.h"
 #include "Heap.h"
 #include "sorters.h"
+#include "tryIt.h"
 
 //#include "MaximumAbsoluteDifference.h"
 /////////////////////uva problems template /////////////////////
@@ -40,42 +41,87 @@ void Main()
 	fclose (stdout);
 #endif
 }
-void permute(string s, int l, int r)
+/*
+Input:
+      1
+     / \
+    2   5
+   / 
+  3 
+ / \
+4   6
+Output:
+2
+[["",  "",  "", "",  "", "", "", "1", "",  "",  "",  "",  "", "", ""]
+ ["",  "",  "", "2", "", "", "", "",  "",  "",  "",  "5", "", "", ""]
+ ["",  "3", "", "",  "", "", "", "",  "",  "",  "",  "",  "", "", ""]
+ ["4", "",  "", "",  "", "", "", "",  "",  "",  "",  "",  "", "", ""]]
+*/
+
+void lvlOrder(TreeNode* node, vector<  pair < int,int >  > & lvl, int id,
+		int l) {
+	if (node == NULL)
+		return;
+	if (lvl.size() == l)
+		lvl.push_back(make_pair(id, id));
+	else
+	{
+		lvl[l].first = min(lvl[l].first, id);
+		lvl[l].second = max(lvl[l].second, id);
+	}
+	lvlOrder(node->left, lvl, id*2-1, l+1);
+	lvlOrder(node->right, lvl, id*2, l+1);
+}
+
+int getLevel(TreeNode* node, int l)
 {
-   cout<<"ip="<<s<<" L:"<<l<<" R:"<<r<<endl;
-   int i;
-   if (l == r)
-     cout<<">>>>>>>>>>>>>>>>>>..."<<s<<endl;
-   else
-   {
-       for (i = l; i <= r; i++)
-       {
-          swap(s[l], s[i]);
-          permute(s, l+1, r);
-          swap(s[l], s[i]); //backtrack
-       }
-   }
+	if(node == NULL)
+		return 0;
+	
+	return 1 + max(getLevel(node->left, l+1), getLevel(node->right, l+1));
 }
-
-template<typename T1, typename T2>
-void pr(T1 a, T2 b)
+void buildMatrix(TreeNode* node, vector<vector<string>> &matrix, int d, int l, int r)
 {
-	cout<<a<<endl;
-	cout<<b<<endl;
+	matrix[d][(l + r) / 2] = to_string(node->val);
+	buildMatrix(node->left, matrix, d+1, l , (l + r) / 2);
+	buildMatrix(node->right, matrix, d+1, (l + r + 1) / 2, r);
 }
 
-void best_hotels() {
-
+vector<vector<string>> printTree(TreeNode* root) {
+	int d=getLevel(root, 0);
+	vector<vector<string>> matrix(d, vector<string>(pow(2, d)-1, ""));
+	buildMatrix(root, matrix, 0, 0, d);
+	return matrix;
 }
 
+int sumOfLeftLeaves(TreeNode* root) {
+	if(root==NULL )
+		return 0;
+	if(root->left == NULL)
+		return root->val;
+	return 	sumOfLeftLeaves(root->left) + sumOfLeftLeaves(root->right);
+}
+
+#include "test.h"
+/*
+[["","","","1","","",""]
+["","2","","","","3",""]
+["4","","5","","6","",""]]
+*/
 void testCase()
 {
-	//int a[]={2,3,4,8};
-	//ivector v = TO_VECTOR(a);
-//	cout<<pathSum(&r, 8)<<endl;
-	int a=1; pr(a,a+1);
+	TreeNode* root=new TreeNode(1);
+	root->left = new TreeNode(2);
+	root->left->left = new TreeNode(4);
+//	root->left->right = new TreeNode(5);
+	
+	root->right = new TreeNode(3);
+	root->right->left = new TreeNode(6);
+	printTree(root);
+	//root->right->right = new TreeNode(1);
 	cout<<"done"<<endl; 
 }
+
 //////////////////////////////////////////////////////////////////////  0 1 1 2 3 5 8 13 21 34
 int _tmain(int argc, _TCHAR* argv[])
 {

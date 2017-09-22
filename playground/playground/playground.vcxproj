@@ -98,6 +98,7 @@
     <ClInclude Include="targetver.h" />
     <ClInclude Include="template.h" />
     <ClInclude Include="test.h" />
+    <ClInclude Include="tryIt.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="playground.cpp" />

@@ -28,12 +28,7 @@ class Graph
 private:
 	std::vector<GraphNode<T>> graphVertices;
 	size_t V;
-	//
-	bool addEdge(size_t node1Idx, size_t node2Idx)
-	{
-		
-		return true;
-	}
+	
 public:
 	Graph():V(0){}
 	Graph(size_t v){
@@ -93,13 +88,15 @@ public:
 				int idx = graphVertices[currentVertex].adjecentIndexes[i];
 				if(visited[idx])
 					continue;
-				else{
+				else {
 					visited[idx] = true;
 					cout<< graphVertices[idx].data << " ";
 					indexes.push(idx);
 				}
 			}
 		}while(!indexes.empty());
+		
+		delete visited;
 	}
 	//
 	void breadthFirstTraversal() 
@@ -107,56 +104,60 @@ public:
 		breadthFirstTraversal(0); 
 	}
 	//
-	void breadthFirstTraversal(size_t s) 
+	void printVertex(int idx)
 	{
-		queue<int> indexes;
-		bool *visited = new bool[V]();
-		int currentVertex = 0;
-		visited[s] = true;
-		cout<< graphVertices[0].data << " ";
-		indexes.push(s);
-		do{
-			currentVertex = indexes.front();
-			indexes.pop();
-			for(int i=0; i<graphVertices[currentVertex].adjecentIndexes.size(); i++)
-			{
-				int idx = graphVertices[currentVertex].adjecentIndexes[i];
-				if(visited[idx])
-					continue;
-				else{
-					visited[idx] = true;
-					cout<< graphVertices[idx].data << " ";
-					indexes.push(idx);
-				}
-			}
-		}while(!indexes.empty());
+		cout<<graphVertices[idx].data<<endl;
 	}
 	//
-	bool isPathExists(int i, int j)
+	void breadthFirstTraversal(size_t s) 
 	{
-		if(i >=V && j>=V)
-			return false;
-		stack<int> indexes;
 		bool *visited = new bool[V]();
-		int currentVertex = j;
-		visited[currentVertex] = true;
-		indexes.push(currentVertex);
-		while(!indexes.empty())
+		queue<int> vertices;
+		vertices.push(s);
+		visited[s] = true;
+		while(!vertices.empty())
 		{
-			currentVertex = indexes.top();
-			indexes.pop();
-			for(int i=0; i<graphVertices[currentVertex].adjecentIndexes.size(); i++)
-			{
-				int idx = graphVertices[currentVertex].adjecentIndexes[i];
-				
-				if(idx == j)
-					return true;
-				else if(!visited[idx])
-					visited[idx] = true;
-					indexes.push(idx);
+			int idx = vertices.front();
+			vertices.pop();
+			printVertex(idx);
+			for(int i=0; i<graphVertices[idx].adjecentIndexes.size(); i++)
+				if(!visited[graphVertices[idx].adjecentIndexes[i]])
+				{
+					vertices.push(graphVertices[idx].adjecentIndexes[i]);					
+					visited[graphVertices[idx].adjecentIndexes[i]] = true;
 				}
 		}
-		
+		delete visited;
+	}
+	//
+	bool isPathExists(size_t i, size_t j)
+	{
+		if(i==j)
+			return true;
+		if(i > V || j > V )
+			return false;
+		bool *visited = new bool[V]();
+		queue<int> vertices;
+		vertices.push(i);
+		visited[i] = true;
+		while(!vertices.empty())
+		{
+			int idx = vertices.front();
+			vertices.pop();
+			printVertex(idx);
+			for(int adjIdx=0; adjIdx<graphVertices[idx].adjecentIndexes.size(); adjIdx++)
+				if(!visited[graphVertices[idx].adjecentIndexes[i]])
+				{
+					if(graphVertices[idx].adjecentIndexes[adjIdx] == j)
+					{
+						delete visited;
+						return true;
+					}
+					vertices.push(graphVertices[idx].adjecentIndexes[adjIdx]);					
+					visited[graphVertices[idx].adjecentIndexes[adjIdx]] = true;
+				}
+		}
+		delete visited;
 		return false;
 	}
 };
