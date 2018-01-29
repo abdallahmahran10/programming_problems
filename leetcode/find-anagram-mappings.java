@@ -1,6 +1,6 @@
 /*
 	Author: Abdallah Mahran
-	Ref: https://leetcode.com/problems/jewels-and-stones/description/
+	Ref: https://leetcode.com/problems/find-anagram-mappings/description/
 	Date: 29.01.2018
 */
 package playground;
