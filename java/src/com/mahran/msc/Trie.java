@@ -1,4 +1,4 @@
-package com.mahran;
+package com.mahran.msc;
 
 import java.util.HashMap;
 import java.util.Map;

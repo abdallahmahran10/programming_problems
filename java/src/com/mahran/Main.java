@@ -1,14 +1,15 @@
 package com.mahran;
 
+import com.mahran.msc.bst.BinarySearchTree;
+
 public class Main {
 
 	public static void main(String[] args) {
-		Trie trie = new Trie();
-		System.out.println(trie.search("oba7"));
-		//trie.add("oba7");
-		trie.add("oba7a");
-		System.out.println(trie.search("oba7"));
-		System.out.println(trie.search("oba7a"));
+		BinarySearchTree bst = BinarySearchTree.createBST(new int[]{1,2,3,4});
+		bst.insertNode(6);
+		bst.insertNode(7);
+		System.out.println(bst.minDepth());
+		System.out.println(bst.maxDepth());
 	}
 
 }

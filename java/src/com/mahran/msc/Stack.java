@@ -1,4 +1,4 @@
-package com.mahran;
+package com.mahran.msc;
 
 public class Stack {
     private int[] stack;

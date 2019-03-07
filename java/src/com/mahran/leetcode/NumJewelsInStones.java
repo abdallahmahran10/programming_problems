@@ -1,4 +1,4 @@
-package com.mahran;
+package com.mahran.leetcode;
 
 import java.util.Arrays;
 

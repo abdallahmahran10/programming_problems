@@ -186,7 +186,17 @@ private:
 		}
 		return node;
 	}
-	
+
+	int maxDepth(TreeNode* root) {
+		if(root == NULL)
+			return 0;
+		if(root->left == NULL)
+			return 1 + maxDepth(root->right);
+		if(root->right == NULL)
+			return 1 + maxDepth(root->left);
+		return max(maxDepth(root->left), maxDepth(root->right)) + 1;
+	}
+
 	int minDepth(TreeNode* root) {
 		if(root == NULL)
 			return 0;
@@ -286,14 +296,8 @@ public:
 		return minDepth(mRoot);
 	}
 	//
-	int maxDepth(TreeNode* root) {
-		if(root == NULL)
-			return 0;
-		if(root->left == NULL) 
-			return 1 + maxDepth(root->right);
-		if(root->right == NULL) 
-			return 1 + maxDepth(root->left);
-		return max(maxDepth(root->left), maxDepth(root->right)) + 1;
+	int maxDepth() {
+		return maxDepth(mRoot);
 	}
 };
 
