@@ -7,7 +7,6 @@ import java.util.Arrays;
 
 @Builder
 public class BinarySearchTree {
-    @Getter
     TreeNode root;
 
     public static BinarySearchTree createBST(int[] arr) {
@@ -219,15 +218,15 @@ public class BinarySearchTree {
         }
     }
     //
-    public int getHeight() {
-        return getHeight(root);
+    public int height() {
+        return height(root);
     }
 
-    private int getHeight(TreeNode node) {
+    private int height(TreeNode node) {
         if (node == null) {
             return -1;
         }
-        return Math.max(maxDepth(node.getRight()), maxDepth(node.getLeft())) + 1;
+        return Math.max(height(node.getRight()), height(node.getLeft())) + 1;
     }
 
 }

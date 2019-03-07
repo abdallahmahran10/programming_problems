@@ -9,7 +9,7 @@ public class Main {
 		bst.insertNode(6);
 		bst.insertNode(7);
 		System.out.println(bst.minDepth());
-		System.out.println(bst.maxDepth());
+		System.out.println(bst.height());
 	}
 
 }
