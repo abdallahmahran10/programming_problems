@@ -9,3 +9,6 @@
 /playground/playground/playground.vcxproj.user
 /playground/playground.opensdf
 /playground/playground/output.txt
+/out
+/.idea
+programming_problems.iml
