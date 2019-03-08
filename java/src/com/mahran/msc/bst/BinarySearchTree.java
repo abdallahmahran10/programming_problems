@@ -7,6 +7,7 @@ import java.util.Arrays;
 
 @Builder
 public class BinarySearchTree {
+    @Getter
     TreeNode root;
 
     public static BinarySearchTree createBST(int[] arr) {

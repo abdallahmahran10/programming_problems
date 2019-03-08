@@ -8,9 +8,9 @@ import lombok.Setter;
 @Setter
 @Builder
 public class TreeNode {
+    private int value;
     private TreeNode left;
     private TreeNode right;
-    private int value;
 
     public  boolean hasRightNode() {
         return right != null;
