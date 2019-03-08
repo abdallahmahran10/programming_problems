@@ -1,7 +1,7 @@
 /*
 Author: Abdallah Mahran
 file: sorters.h
-desc: implementation of some wel known algorithms 
+desc: implementation of some well known algorithms
 */
 
 #ifndef SORTERS_H

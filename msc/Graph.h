@@ -1,7 +1,7 @@
 /*
 * Author: Abdallah Mahran
 * File: Graph.h
-* Disc: Graph implmentation
+* Disc: Graph implementation
 */
 #ifndef GRAPH_H
 #define GRAPH_H
