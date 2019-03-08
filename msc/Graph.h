@@ -86,9 +86,7 @@ public:
 			for(int i=0; i<graphVertices[currentVertex].adjecentIndexes.size(); i++)
 			{
 				int idx = graphVertices[currentVertex].adjecentIndexes[i];
-				if(visited[idx])
-					continue;
-				else {
+				if(!visited[idx]) {
 					visited[idx] = true;
 					cout<< graphVertices[idx].data << " ";
 					indexes.push(idx);

@@ -1,18 +1,18 @@
 package com.mahran.msc;
 
-public class Queue<T> {
+public class TQueue<T> {
     private T[] queue;
     private int tail;
     private int head;
 
-    public Queue(int s) {
+    public TQueue(int s) {
         queue = (T[]) new Object[s];
         tail = head = -1;
     }
 
     public void enqueue(T v) {
         if(isFull()) {
-            System.out.println("Queue overflow");
+            System.out.println("TQueue overflow");
             return;
         }
         if (isEmpty()) {
@@ -25,7 +25,7 @@ public class Queue<T> {
 
     public T dequeue() {
         if (isEmpty()) {
-            System.out.println("Queue is empty");
+            System.out.println("TQueue is empty");
             return null;
         }
         T v = queue[tail];

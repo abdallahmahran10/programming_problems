@@ -1,26 +1,26 @@
 package com.mahran.msc;
 
-public class Stack {
-    private int[] stack;
+public class TStack<T> {
+    private T[] stack;
     private int idx;
 
-    public Stack(int s) {
-        stack = new int[s];
+    public TStack(int s) {
+        stack = (T[]) new Object[s];
         idx = 0;
     }
 
-    public void push(int v) {
+    public void push(T v) {
         if (idx == stack.length) {
-            System.out.println("Stack overflow.");
+            System.out.println("TStack overflow.");
             return;
         }
         stack[idx++] = v;
     }
 
-    public int pop() {
+    public T pop() {
         if (idx == 0) {
-            System.out.println("Stack is empty.");
-            return -1;
+            System.out.println("TStack is empty.");
+            return null;
         }
         return stack[--idx];
     }

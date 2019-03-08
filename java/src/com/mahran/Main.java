@@ -1,24 +1,23 @@
 package com.mahran;
 
-import com.mahran.leetcode.FindTilt;
-import com.mahran.leetcode.TreeNode;
-import com.mahran.leetcode.Utils;
+import com.mahran.msc.Graph;
 
 public class Main {
 
 	public static void main(String[] args) {
-		TreeNode bst = Utils.buildBSTFromSortedArray(new int[]{1, 2, 3, 4});
+		Graph graph = new Graph(true);
 
-		TreeNode node = new TreeNode(1);
-		node.left = new TreeNode(2);
-		node.right = new TreeNode(3);
-		node.left.left = new TreeNode(4);
-//		node.right.left = new TreeNode(5);
-//		node.right = new TreeNode(3);
-//		node.right.left = new TreeNode(6);
-//		node.right.right = new TreeNode(7);
+		graph.addEdge(5, 2);
+		graph.addEdge(5, 0);
+		graph.addEdge(4, 0);
+		graph.addEdge(4, 1);
+		graph.addEdge(2, 3);
+		graph.addEdge(3, 1);
 
-		System.out.println(new FindTilt().findTilt(node));
+		graph.printGraph();
+		graph.breadthFirstTraversal(5);
+		graph.depthFirstTraversal(5);
+		graph.topologicalSort();
+		System.out.println(graph.isPathExists(5, 4));
 	}
-
 }

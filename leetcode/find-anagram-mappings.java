@@ -13,7 +13,7 @@ import java.util.Queue;
 public class Main {
 
 	static public int[] anagramMappings(int[] A, int[] B) {
-    	// Queue<Integer> q = new LinkedList<>();
+    	// TQueue<Integer> q = new LinkedList<>();
     	Map<Integer, Queue<Integer>> map = new HashMap<>();
     	for(int i=0; i<B.length; i++)
     	{

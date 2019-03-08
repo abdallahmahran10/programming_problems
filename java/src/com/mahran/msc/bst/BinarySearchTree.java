@@ -3,7 +3,7 @@ package com.mahran.msc.bst;
 import lombok.Builder;
 import lombok.Getter;
 
-import java.util.Arrays;
+import java.util.*;
 
 @Builder
 public class BinarySearchTree {
@@ -228,6 +228,24 @@ public class BinarySearchTree {
             return -1;
         }
         return Math.max(height(node.getRight()), height(node.getLeft())) + 1;
+    }
+    // Breadth first traversal
+    public void printLevelOrder() {
+        Queue<TreeNode> nodesQueue = new LinkedList<>();
+        if (root == null) {
+            return;
+        }
+        TreeNode slider = root;
+        while(slider != null) {
+            System.out.print(slider.getValue() + " ");
+            if (slider.hasLeftNode()) {
+                nodesQueue.add(slider.getLeft());
+            }
+            if (slider.hasRightNode()) {
+                nodesQueue.add(slider.getRight());
+            }
+            slider = nodesQueue.poll();
+        }
     }
 
 }
