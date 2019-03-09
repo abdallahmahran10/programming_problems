@@ -1,19 +1,28 @@
 package com.mahran.msc;
 
-import java.util.ArrayList;
+import com.mahran.msc.bst.TreeNode;
+
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
+import java.util.Queue;
+import java.util.Set;
 import java.util.Stack;
 
 public class Graph {
     private final boolean directed;
-    private final Map<Integer, List<Integer>> adjacencyList;
+    private final Map<Integer, Set<Integer>> adjacencyList;
 
     public Graph(boolean directed) {
         this.directed = directed;
         this.adjacencyList = new HashMap<>();
+    }
+
+    public Graph(boolean directed, TreeNode root) {
+        this.directed = directed;
+        this.adjacencyList = new HashMap<>();
+        parseTree(root);
     }
 
     //
@@ -21,7 +30,7 @@ public class Graph {
         adjacencyList.keySet().forEach(v -> printVertex(v, adjacencyList.get(v)) );
     }
 
-    private void printVertex(Integer v, List<Integer> vertexEdges) {
+    private void printVertex(Integer v, Set<Integer> vertexEdges) {
         System.out.println("Adjacency list of " + v + ": ");
         System.out.print(v);
         vertexEdges.forEach(a -> System.out.print("->" + a));
@@ -30,11 +39,11 @@ public class Graph {
 
     public void addEdge(int u, int v) {
         if (!adjacencyList.containsKey(u)) {
-            adjacencyList.put(u, new ArrayList<>());
+            adjacencyList.put(u, new HashSet<>());
         }
         adjacencyList.get(u).add(v);
         if (!adjacencyList.containsKey(v)) {
-            adjacencyList.put(v, new ArrayList<>());
+            adjacencyList.put(v, new HashSet<>());
         }
         if (!directed) {
             adjacencyList.get(v).add(u);
@@ -48,20 +57,19 @@ public class Graph {
             return;
         }
         System.out.println("Breadth First Traversal: ");
-        HashMap<Integer, Boolean> visited = new HashMap<>();
-        adjacencyList.keySet().forEach(v -> visited.put(v, false));
+        HashSet<Integer> visited = new HashSet<>();
         LinkedList<Integer> verticesQueue = new LinkedList<>();
         verticesQueue.add(head);
-        visited.put(head, true);
+        visited.add(head);
         while (!verticesQueue.isEmpty()) {
             int vertex = verticesQueue.poll();
             System.out.print(vertex + " ");
             adjacencyList.get(vertex)
                     .stream()
-                    .filter(v -> !visited.get(v))
+                    .filter(v -> !visited.contains(v))
                     .forEach(v -> {
                         verticesQueue.add(v);
-                        visited.put(v, true);
+                        visited.add(v);
                     });
         }
         System.out.println();
@@ -73,20 +81,19 @@ public class Graph {
             return;
         }
         System.out.println("Depth First Traversal: ");
-        HashMap<Integer, Boolean> visited = new HashMap<>();
-        adjacencyList.keySet().forEach(v -> visited.put(v, false));
-        Stack<Integer> verticesQueue = new Stack<>();
-        verticesQueue.add(head);
-        visited.put(head, true);
-        while (!verticesQueue.isEmpty()) {
-            int vertex = verticesQueue.pop();
+        HashSet<Integer> visited = new HashSet<>();
+        Stack<Integer> verticesStack = new Stack<>();
+        verticesStack.add(head);
+        visited.add(head);
+        while (!verticesStack.isEmpty()) {
+            int vertex = verticesStack.pop();
             System.out.print(vertex + " ");
             adjacencyList.get(vertex)
                     .stream()
-                    .filter(v -> !visited.get(v))
+                    .filter(v -> !visited.contains(v))
                     .forEach(v -> {
-                        verticesQueue.add(v);
-                        visited.put(v, true);
+                        verticesStack.add(v);
+                        visited.add(v);
                     });
         }
         System.out.println();
@@ -109,12 +116,11 @@ public class Graph {
         }
         System.out.println("Topological: ");
 
-        HashMap<Integer, Boolean> visited = new HashMap<>();
-        adjacencyList.keySet().forEach(v -> visited.put(v, false));
+        HashSet<Integer> visited = new HashSet<>();
         Stack<Integer> verticesStack = new Stack<>();
         adjacencyList.keySet()
                 .stream()
-                .filter(v -> !visited.get(v))
+                .filter(v -> !visited.contains(v))
                 .forEach( v -> topologicalSort(v, visited, verticesStack));
         while (!verticesStack.isEmpty()) {
             System.out.print(verticesStack.pop() + " ");
@@ -122,11 +128,11 @@ public class Graph {
         System.out.println();
     }
 
-    private void topologicalSort(Integer vertex, HashMap<Integer, Boolean> visited, Stack<Integer> verticesStack) {
-        visited.put(vertex, true);
+    private void topologicalSort(Integer vertex, HashSet<Integer> visited, Stack<Integer> verticesStack) {
+        visited.add(vertex);
         adjacencyList.get(vertex)
                 .stream()
-                .filter(v -> !visited.get(v))
+                .filter(v -> !visited.contains(v))
                 .forEach(v -> topologicalSort(v, visited, verticesStack));
         verticesStack.push(vertex);
     }
@@ -139,20 +145,19 @@ public class Graph {
         if (src == dst) {
             return true;
         }
-        HashMap<Integer, Boolean> visited = new HashMap<>();
-        adjacencyList.keySet().forEach(v -> visited.put(v, false));
-        Stack<Integer> verticesQueue = new Stack<>();
-        verticesQueue.add(src);
-        visited.put(src, true);
-        while (!verticesQueue.isEmpty()) {
-            int vertex = verticesQueue.pop();
+        HashSet<Integer> visited = new HashSet<>();
+        Stack<Integer> verticesStack = new Stack<>();
+        verticesStack.add(src);
+        visited.add(src);
+        while (!verticesStack.isEmpty()) {
+            int vertex = verticesStack.pop();
             for (int v : adjacencyList.get(vertex)) {
-                if (!visited.get(v)) {
+                if (!visited.contains(v)) {
                     if (v == dst) {
                         return true;
                     }
-                    verticesQueue.add(v);
-                    visited.put(v, true);
+                    verticesStack.add(v);
+                    visited.add(v);
                 }
             }
         }
@@ -191,26 +196,44 @@ public class Graph {
         if (src == dst) {
             return true;
         }
-        HashMap<Integer, Boolean> visited = new HashMap<>();
-        adjacencyList.keySet().forEach(v -> visited.put(v, false));
-        Stack<Integer> verticesQueue = new Stack<>();
-        verticesQueue.add(src);
-        visited.put(src, true);
+        HashSet<Integer> visited = new HashSet<>();
+        Stack<Integer> verticesStack = new Stack<>();
+        verticesStack.add(src);
+        visited.add(src);
         distances.put(src, 0);
-        while (!verticesQueue.isEmpty()) {
-            int vertex = verticesQueue.pop();
+        while (!verticesStack.isEmpty()) {
+            int vertex = verticesStack.pop();
             for (int adjVertex : adjacencyList.get(vertex)) {
-                if (!visited.get(adjVertex)) {
+                if (!visited.contains(adjVertex)) {
                     distances.put(adjVertex, distances.get(vertex) + 1);
                     prevNodeInPath.put(adjVertex, vertex);
                     if (adjVertex == dst) {
                         return true;
                     }
-                    verticesQueue.add(adjVertex);
-                    visited.put(adjVertex, true);
+                    verticesStack.add(adjVertex);
+                    visited.add(adjVertex);
                 }
             }
         }
         return false;
+    }
+    //
+    private void parseTree(TreeNode root) {
+        Queue<TreeNode> vertices = new LinkedList<>();
+        vertices.add(root);
+        while (!vertices.isEmpty()) {
+            TreeNode node = vertices.poll();
+            if (!adjacencyList.containsKey(node.getValue())) {
+                adjacencyList.put(node.getValue(), new HashSet<>());
+            }
+            if (node.hasLeftNode()) {
+                vertices.add(node.getLeft());
+                adjacencyList.get(node.getValue()).add(node.getLeft().getValue());
+            }
+            if (node.hasRightNode()) {
+                vertices.add(node.getRight());
+                adjacencyList.get(node.getValue()).add(node.getRight().getValue());
+            }
+        }
     }
 }
