@@ -159,4 +159,58 @@ public class Graph {
         return false;
     }
 
+    public int shortestDistance(int src, int dst) {
+        Map<Integer, Integer> distances = new HashMap<>();
+        Map<Integer, Integer> prevNodeInPath = new HashMap<>();
+        if (!isPathExists(src, dst, distances, prevNodeInPath)) {
+            System.out.println("No path from " + src + " to " + dst);
+            return -1;
+        }
+
+        Stack<Integer> pathStack = new Stack<>();
+        int crawl = dst;
+        pathStack.push(crawl);
+        while(crawl != src) {
+            crawl = prevNodeInPath.get(crawl);
+            pathStack.push(crawl);
+        }
+        System.out.print("Path: ");
+        while (!pathStack.isEmpty()) {
+            System.out.print(pathStack.pop() + (pathStack.size() == 0? "" : "->"));
+        }
+        System.out.println("\nDistance: " + distances.get(dst));
+        return distances.get(dst);
+    }
+
+
+    private boolean isPathExists(int src, int dst,  Map<Integer, Integer> distances, Map<Integer, Integer> prevNodeInPath) {
+        if (!adjacencyList.containsKey(src) || !adjacencyList.containsKey(dst)) {
+            return false;
+        }
+
+        if (src == dst) {
+            return true;
+        }
+        HashMap<Integer, Boolean> visited = new HashMap<>();
+        adjacencyList.keySet().forEach(v -> visited.put(v, false));
+        Stack<Integer> verticesQueue = new Stack<>();
+        verticesQueue.add(src);
+        visited.put(src, true);
+        distances.put(src, 0);
+        while (!verticesQueue.isEmpty()) {
+            int vertex = verticesQueue.pop();
+            for (int adjVertex : adjacencyList.get(vertex)) {
+                if (!visited.get(adjVertex)) {
+                    distances.put(adjVertex, distances.get(vertex) + 1);
+                    prevNodeInPath.put(adjVertex, vertex);
+                    if (adjVertex == dst) {
+                        return true;
+                    }
+                    verticesQueue.add(adjVertex);
+                    visited.put(adjVertex, true);
+                }
+            }
+        }
+        return false;
+    }
 }

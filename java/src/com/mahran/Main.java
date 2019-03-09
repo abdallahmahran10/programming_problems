@@ -18,6 +18,7 @@ public class Main {
 		graph.breadthFirstTraversal(5);
 		graph.depthFirstTraversal(5);
 		graph.topologicalSort();
-		System.out.println(graph.isPathExists(5, 4));
+		System.out.println(graph.isPathExists(5, 1));
+		graph.shortestDistance(5, 1);
 	}
 }
