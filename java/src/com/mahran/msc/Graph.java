@@ -269,5 +269,23 @@ public class Graph {
             }
         }
     }
+    //
+    public short[][] transitiveClosure() {
+        int vertices = adjacencyList.size();
+        short[][] transitiveClosureMatrix = new short[vertices][vertices];
+        for (int v : adjacencyList.keySet()) {
+            dfsUtil(v, v, transitiveClosureMatrix);
+        }
+        return transitiveClosureMatrix;
+    }
+
+    private void dfsUtil(int v, int u, short[][] transitiveClosureMatrix) {
+        transitiveClosureMatrix[v][u] = 1;
+        for (int vertex : adjacencyList.get(u)) {
+            if (transitiveClosureMatrix[v][vertex] == 0) {
+                dfsUtil(v, vertex, transitiveClosureMatrix);
+            }
+        }
+    }
 
 }
