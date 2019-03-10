@@ -31,7 +31,6 @@ public class Graph {
     }
 
     private void printVertex(Integer v, Set<Integer> vertexEdges) {
-        System.out.println("Adjacency list of " + v + ": ");
         System.out.print(v);
         vertexEdges.forEach(a -> System.out.print("->" + a));
         System.out.println(".");
@@ -236,4 +235,30 @@ public class Graph {
             }
         }
     }
+    //
+    public int findMother() {
+        if (adjacencyList.size() == 0) {
+            return -1;
+        }
+        HashSet<Integer> visited = new HashSet<>();
+        int lastVertexInDFS = 0;
+        for (int v : adjacencyList.keySet()) {
+            if (!visited.contains(v)) {
+                dfsUtil(v, visited);
+                lastVertexInDFS = v;
+            }
+        }
+        return visited.size() == adjacencyList.size()? lastVertexInDFS : -1;
+    }
+
+    private void dfsUtil(int v, HashSet<Integer> visited) {
+        visited.add(v);
+
+        for (int u : adjacencyList.get(v)) {
+            if (!visited.contains(u)) {
+                dfsUtil(u, visited);
+            }
+        }
+    }
+
 }
