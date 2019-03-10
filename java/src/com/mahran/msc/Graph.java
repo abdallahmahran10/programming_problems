@@ -47,7 +47,16 @@ public class Graph {
         if (!directed) {
             adjacencyList.get(v).add(u);
         }
+    }
 
+    public void deleteVertex(int v) {
+        if (adjacencyList.containsKey(v)) {
+            adjacencyList.remove(v);
+            adjacencyList.values()
+                    .stream()
+                    .filter(adjList -> adjList.contains(v))
+                    .forEach(adjList -> adjList.remove(v));
+        }
     }
     //
     public void breadthFirstTraversal(int head) {
