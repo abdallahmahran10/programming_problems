@@ -1,20 +1,25 @@
 package com.mahran;
 
-import com.mahran.leetcode.TreeNode;
-import com.mahran.leetcode.Utils;
-import com.mahran.msc.bst.BinarySearchTree;
+import com.mahran.geeksforgeeks.FindSubsets;
+
+import java.util.Comparator;
+import java.util.List;
+
 public class Main {
 
 	public static void main(String[] args) {
-		TreeNode root = new TreeNode(20);
-		root.left = new TreeNode(8);
-		root.left.left = new TreeNode(4);
-		root.left.right = new TreeNode(12);
-		root.left.right.left = new TreeNode(10);
-		root.left.right.right = new TreeNode(14);
-//		root.right = new TreeNode(22);
-//		root.right.right = new TreeNode(25);
-		BinarySearchTree bst = new BinarySearchTree(Utils.toMyTreeNode(root));
-		bst.printBoundary();
+
+		new FindSubsets().findSubsets(List.of(1, 2, 3, 4))
+				.stream()
+				.sorted(Comparator.comparingInt(List::size))
+				.forEach(System.out::println);
+		System.out.println("---------------------------------------------------");
+		new FindSubsets().findSubsets(List.of(4, 3, 2, 1))
+				.stream()
+				.sorted(Comparator.comparingInt(List::size))
+				.forEach(System.out::println);
+//		for (int i = 0; i < subsets.size(); i++) {
+//			System.out.println(subsets.get(i).toString());
+//		}
 	}
 }
