@@ -1,6 +1,7 @@
 package com.mahran.geeksforgeeks;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class FindSubsets {
@@ -18,5 +19,17 @@ public class FindSubsets {
             subsets.add(subset);
         }
         return subsets;
+    }
+
+    public static void main(String[] args) {
+        new FindSubsets().findSubsets(List.of(1, 2, 3, 4))
+                .stream()
+                .sorted(Comparator.comparingInt(List::size))
+                .forEach(System.out::println);
+        System.out.println("---------------------------------------------------");
+        new FindSubsets().findSubsets(List.of(4, 3, 2, 1))
+                .stream()
+                .sorted(Comparator.comparingInt(List::size))
+                .forEach(System.out::println);
     }
 }
