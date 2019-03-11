@@ -2,9 +2,12 @@ package com.mahran.msc;
 
 import com.mahran.msc.bst.TreeNode;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
@@ -244,7 +247,7 @@ public class Graph {
             }
         }
     }
-    //
+    // https://www.geeksforgeeks.org/find-a-mother-vertex-in-a-graph/
     public int findMother() {
         if (adjacencyList.size() == 0) {
             return -1;
@@ -269,7 +272,7 @@ public class Graph {
             }
         }
     }
-    //
+    // https://www.geeksforgeeks.org/transitive-closure-of-a-graph/
     public short[][] transitiveClosure() {
         int vertices = adjacencyList.size();
         short[][] transitiveClosureMatrix = new short[vertices][vertices];
@@ -291,4 +294,38 @@ public class Graph {
     public boolean doesEdgeExists(int v, int u) {
         return adjacencyList.containsKey(v) && adjacencyList.get(v).contains(u);
     }
+
+    // https://www.ea.com/games/apex-legends/about/characters/pathfinder
+    public List<String> pathFinder(int src, int dst) {
+        if (src == dst) {
+            return Collections.emptyList();
+        }
+        List<String> result = new ArrayList<>();
+        Set<Integer> visited = new HashSet<>();
+        Map<Integer, StringBuilder> paths = new HashMap<>();
+        Stack<Integer> verticesStack = new Stack<>();
+        verticesStack.add(src);
+        visited.add(src);
+        paths.put(src, new StringBuilder().append(src).append(" "));
+        while (!verticesStack.isEmpty()) {
+            Integer v = verticesStack.pop();
+            for (Integer u : adjacencyList.get(v)) {
+                if (visited.contains(u)) {
+                    continue;
+                }
+                if (u != dst) {
+                    visited.add(u);
+                }
+                String currentPathStr = paths.get(v).toString() + u + " ";
+                if (u == dst){
+                    result.add(currentPathStr);
+                    continue;
+                }
+                paths.put(u, new StringBuilder(currentPathStr));
+                verticesStack.add(u);
+            }
+        }
+        return result;
+    }
+
 }

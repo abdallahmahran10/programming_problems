@@ -303,5 +303,24 @@ public class BinarySearchTree {
             System.out.print(node.getValue() + " ");
         }
     }
+    //
+    public TreeNode cloneRoot() {
+        return cloneNode(root);
+    }
 
+    private static TreeNode cloneNode(TreeNode node) {
+        if (node == null) {
+            return null;
+        }
+        TreeNode cloned = TreeNode.builder()
+                .value(node.getValue())
+                .build();
+        if (node.hasLeftNode()) {
+            cloned.setLeft(cloneNode(node.getLeft()));
+        }
+        if (node.hasRightNode()) {
+            cloned.setRight(cloneNode(node.getRight()));
+        }
+        return cloned;
+    }
 }
