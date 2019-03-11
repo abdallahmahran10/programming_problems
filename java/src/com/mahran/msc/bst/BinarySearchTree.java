@@ -10,6 +10,9 @@ public class BinarySearchTree {
     @Getter
     TreeNode root;
 
+    public BinarySearchTree(TreeNode root) {
+        this.root = root;
+    }
     public static BinarySearchTree createBST(int[] arr) {
         Arrays.sort(arr);
         return buildBSTFromSortedArray(arr);
@@ -229,7 +232,7 @@ public class BinarySearchTree {
         }
         return Math.max(height(node.getRight()), height(node.getLeft())) + 1;
     }
-    // Breadth first traversal
+    //
     public void printLevelOrder() {
         Queue<TreeNode> nodesQueue = new LinkedList<>();
         if (root == null) {
@@ -245,6 +248,59 @@ public class BinarySearchTree {
                 nodesQueue.add(slider.getRight());
             }
             slider = nodesQueue.poll();
+        }
+    }
+    //
+    public void printBoundary() {
+        if(root == null) {
+            System.out.println("Empty tree!");
+            return;
+        }
+        System.out.println("Tree Boundary: ");
+        System.out.print(root.getValue() + " ");
+        printLeftBoundary(root.getLeft());
+        printLeaves(root.getLeft());
+        printLeaves(root.getRight());
+        printRightBoundary(root.getRight());
+    }
+
+    private void printLeaves(TreeNode node) {
+        if (node == null) {
+            return;
+        }
+        if (node.isLeaf()) {
+            System.out.print(node.getValue() + " ");
+        } else {
+            printLeaves(node.getLeft());
+            printLeaves(node.getRight());
+        }
+    }
+
+    private void printLeftBoundary(TreeNode node) {
+        if (node == null) {
+            return;
+        }
+
+        if (node.hasLeftNode()) {
+            System.out.print(node.getValue() + " ");
+            printLeftBoundary(node.getLeft());
+        } else if (node.hasRightNode()) {
+            System.out.print(node.getValue() + " ");
+            printLeftBoundary(node.getRight());
+        }
+    }
+
+    private void printRightBoundary(TreeNode node) {
+        if (node == null) {
+            return;
+        }
+
+        if (node.hasRightNode()) {
+            printRightBoundary(node.getRight());
+            System.out.print(node.getValue() + " ");
+        } else if (node.hasLeftNode()) {
+            printRightBoundary(node.getLeft());
+            System.out.print(node.getValue() + " ");
         }
     }
 

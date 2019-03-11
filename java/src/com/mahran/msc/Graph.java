@@ -287,5 +287,8 @@ public class Graph {
             }
         }
     }
-
+    //
+    public boolean doesEdgeExists(int v, int u) {
+        return adjacencyList.containsKey(v) && adjacencyList.get(v).contains(u);
+    }
 }

@@ -1,5 +1,4 @@
 package com.mahran.leetcode;
-
 public class Utils {
     private static TreeNode buildBSTFromSortedArray(int[] arr, int s, int e) {
         if (s > e) {
@@ -18,5 +17,21 @@ public class Utils {
 
     public static TreeNode buildBSTFromSortedArray(int[] arr) {
         return buildBSTFromSortedArray(arr, 0, arr.length-1);
+    }
+
+    public static com.mahran.msc.bst.TreeNode toMyTreeNode(TreeNode node) {
+        if (node == null) {
+            return null;
+        }
+        com.mahran.msc.bst.TreeNode treeNode = com.mahran.msc.bst.TreeNode.builder()
+                .value(node.val)
+                .build();
+        if (node.left != null) {
+            treeNode.setLeft(toMyTreeNode(node.left));
+        }
+        if (node.right != null) {
+            treeNode.setRight(toMyTreeNode(node.right));
+        }
+        return treeNode;
     }
 }
